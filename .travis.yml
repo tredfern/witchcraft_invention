@@ -23,7 +23,7 @@
 
   script:
     - luacheck main.lua ./src
-    - busted . --verbose --coverage
+    - busted --run=travis
 
   after_success:
     - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install
