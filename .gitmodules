@@ -1,0 +1,3 @@
+[submodule "ext/artemis"]
+	path = ext/artemis
+	url = https://github.com/tredfern/artemis.git
