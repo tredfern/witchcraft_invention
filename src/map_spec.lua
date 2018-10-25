@@ -12,4 +12,10 @@ describe("Map", function()
     assert.equals("grass", m:get(20, 30))
   end)
 
+  it("knows it's width and height", function()
+    local m = Map:new(482, 382)
+    assert.equals(482, m:get_width())
+    assert.equals(382, m:get_height())
+  end)
+
 end)

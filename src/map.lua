@@ -23,5 +23,13 @@ function Map:get(x, y)
   return self.grid:get(x, y)
 end
 
+function Map:get_width()
+  return self.grid.width
+end
+
+function Map:get_height()
+  return self.grid.height
+end
+
 
 return Map

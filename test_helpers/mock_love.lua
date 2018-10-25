@@ -20,3 +20,8 @@ love = {
     },
     handlers = { }
 }
+return {
+  override_graphics = function(v, r)
+    love.graphics[v] = r
+  end
+}

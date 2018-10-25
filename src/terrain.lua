@@ -6,14 +6,15 @@
 local Terrain = {}
 local loaded_terrains = {}
 
-function Terrain:new(name, image)
+function Terrain:new(name, symbol, color)
   if loaded_terrains[name] ~= nil then
     return loaded_terrains[name]
   end
 
   local t = {
     name = name,
-    image = image
+    symbol = symbol,
+    color = color
   }
   setmetatable(t, self)
   self.__index = self
@@ -22,7 +23,7 @@ function Terrain:new(name, image)
 end
 
 function Terrain:grass()
-  return self:new("grass", "images/grass.png")
+  return self:new("grass", ".", {0,0.7,0,0.7})
 end
 
 return Terrain

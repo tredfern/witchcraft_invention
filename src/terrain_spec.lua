@@ -5,9 +5,9 @@
 
 describe("Terrain", function()
   local Terrain = require "terrain"
-  it("has an image associated with the terrain type", function()
+  it("has symbol associated with the terrain type", function()
     local g = Terrain:grass()
-    assert.not_equal(nil, g.image)
+    assert.equals(".", g.symbol)
   end)
 
   it("returns the same terrain type after registering one", function()
