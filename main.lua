@@ -24,9 +24,7 @@ for x=1,100 do
     m:set_terrain(x, y, Terrain:grass())
   end
 end
-local character = {
-  x = 20, y = 20, symbol = utf8.char(0x2660), color = {0.3, 0.3, 0.9, 1}
-}
+local character = mf:new_tile(utf8.char(0x2660), 20, 20, { 0.3, 0.3, 0.9, 1})
 
 function love.load()
 end
@@ -35,13 +33,11 @@ function love.draw()
   love.graphics.setFont(mf.font)
   for x=1,m:get_width() do
     for y=1,m:get_height() do
-      love.graphics.setColor(m:get(x, y).color)
-      love.graphics.print(m:get(x, y).symbol, (x - 1) * mf.width, (y - 1) * mf.height)
+      local t = m:get(x, y)
+      mf:draw(t.symbol, x, y, t.color)
     end
   end
-
-  love.graphics.setColor(character.color)
-  love.graphics.print(character.symbol, (character.x - 1) * mf.width, (character.y - 1) * mf.height)
+  character:draw()
 end
 
 function love.update()
@@ -63,5 +59,9 @@ function love.keypressed(key)
 
   if key == "right" then
     character.x = character.x + 1
+  end
+
+  if key == "escape" then
+    love.event.quit()
   end
 end
