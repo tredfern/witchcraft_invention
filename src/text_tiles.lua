@@ -38,11 +38,13 @@ function TextTiles:new_tile(symbol, x, y, color)
     x = x,
     y = y,
     color = color,
-    draw = function(self) 
-      self.base:draw(self.symbol, self.x, self.y, self.color) 
+    draw = function(slf)
+      slf.base:draw(slf.symbol, slf.x, slf.y, slf.color)
     end
   }
   return t
 end
+
+
 
 return TextTiles

@@ -8,6 +8,7 @@ local searchpath = love.filesystem.getRequirePath()
 searchpath = searchpath .. ";src/?.lua;src/?/init.lua;"
 love.filesystem.setRequirePath(searchpath)
 
+local randomly = require("randomly")
 local statemachine = require("statemachine")
 local scenes = statemachine:new({"update", "draw"})
 scenes.title = require("scenes.title")
@@ -21,7 +22,8 @@ local Terrain = require("terrain")
 local m = Map:new(100, 100)
 for x=1,100 do
   for y=1,100 do
-    m:set_terrain(x, y, Terrain:grass())
+    local t = randomly.choose({"grass", "dirt", "water"})
+    m:set_terrain(x, y, Terrain:get_terrain(t))
   end
 end
 local character = mf:new_tile(utf8.char(0x2660), 20, 20, { 0.3, 0.3, 0.9, 1})
