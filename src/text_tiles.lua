@@ -5,8 +5,12 @@
 
 local paths = require "paths"
 local TextTiles = {}
+local loaded_fonts = {}
 
 function TextTiles:new(fontname, size)
+  if loaded_fonts[fontname] and loaded_fonts[fontname][size] then
+    return loaded_fonts[fontname][size]
+  end
   local tt = {
     size = size,
     font = love.graphics.newFont(paths.font_path .. fontname, size)
@@ -16,8 +20,14 @@ function TextTiles:new(fontname, size)
   self.__index = self
   setmetatable(tt, self)
 
+  loaded_fonts[fontname] = loaded_fonts[fontname] or {}
+  loaded_fonts[fontname][size] = tt
 
   return tt
+end
+
+function TextTiles:get_screen_tile_size()
+  return love.graphics.getWidth() / self.width, love.graphics.getHeight() / self.height
 end
 
 function TextTiles:get_box(x, y)
@@ -29,6 +39,10 @@ function TextTiles:draw(character, x, y, color)
   love.graphics.setColor(color)
   local sx, sy = self:get_box(x, y)
   love.graphics.print(character, sx, sy)
+end
+
+function TextTiles:make_default()
+  TextTiles.default = self
 end
 
 function TextTiles:new_tile(symbol, x, y, color)
@@ -45,6 +59,6 @@ function TextTiles:new_tile(symbol, x, y, color)
   return t
 end
 
-
+TextTiles:new("FreeMono.ttf", 16):make_default()
 
 return TextTiles

@@ -6,10 +6,16 @@
 local mocklove = require "test_helpers/mock_love"
 
 describe("TextTiles", function()
-  local TextTiles = require "text_tiles"
-
   local font = { getWidth = function() return 10 end, getHeight = function() return 11 end }
   mocklove.override_graphics("newFont", spy.new(function() return font end))
+
+  local TextTiles = require "text_tiles"
+
+  it("starts with a font as the default one", function()
+    assert.not_equal(nil, TextTiles.default)
+    assert.not_equal(nil, TextTiles.default.font)
+    assert.equal(16, TextTiles.default.size)
+  end)
 
   it("Loads a font and has a global tile size", function()
     local t = TextTiles:new("FreeMono.ttf", 10)
@@ -51,4 +57,24 @@ describe("TextTiles", function()
     assert.spy(t.draw).was_called()
     assert.spy(t.draw).was.called_with(t, img.symbol, img.x, img.y, img.color)
   end)
+
+  it("can calculate the screen size in tiles", function()
+    local t = TextTiles:new("font", 10)
+    local sw, sh = t:get_screen_tile_size()
+    assert.equals(love.graphics.getWidth() / t.width, sw)
+    assert.equals(love.graphics.getHeight() / t.height, sh)
+  end)
+
+  it("returns the previously loaded font instead of loading more", function()
+    local t = TextTiles:new("font", 10)
+    local t2 = TextTiles:new("font", 10)
+    assert.equals(t, t2)
+  end)
+
+  it("can have one sent as default for general usage", function()
+    local t = TextTiles:new("font", 10)
+    t:make_default()
+    assert.equals(t, TextTiles.default)
+  end)
+
 end)

@@ -5,10 +5,10 @@
 
 local Game = {}
 
-local utf8 = require("utf8")
 local randomly = require("randomly")
 local TextTiles = require("text_tiles")
-local mf = TextTiles:new("FreeMono.ttf", 19)
+local mf = TextTiles.default
+local cursor = require "cursor"
 local Map = require("map")
 local Terrain = require("terrain")
 local m = Map:new(100, 100)
@@ -18,34 +18,38 @@ for x=1,100 do
     m:set_terrain(x, y, Terrain:get_terrain(t))
   end
 end
-local character = mf:new_tile(utf8.char(0x2660), 20, 20, { 0.3, 0.3, 0.9, 1})
+cursor.x, cursor.y = m:get_width() / 2, m:get_height() / 2
 
 function Game:draw()
   love.graphics.setFont(mf.font)
+  local sw, sh = mf:get_screen_tile_size()
+  local left, top = math.floor(cursor.x - sw / 2), math.floor(cursor.y - sh / 2)
   for x=1,m:get_width() do
     for y=1,m:get_height() do
       local t = m:get(x, y)
-      mf:draw(t.symbol, x, y, t.color)
+      if t then
+        mf:draw(t.symbol, x - left, y - top, t.color)
+      end
     end
   end
-  character:draw()
+  cursor:draw()
 end
 
 function Game:keypressed(key)
   if key == "up" then
-    character.y = character.y - 1
+    cursor.y = cursor.y - 1
   end
 
   if key == "down" then
-    character.y = character.y + 1
+    cursor.y = cursor.y + 1
   end
 
   if key == "left" then
-    character.x = character.x - 1
+    cursor.x = cursor.x - 1
   end
 
   if key == "right" then
-    character.x = character.x + 1
+    cursor.x = cursor.x + 1
   end
 end
 

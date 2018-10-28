@@ -1,4 +1,6 @@
 local font = {
+  getWidth = function() return 10 end,
+  getHeight = function() return 10 end
 }
 love = {
     graphics = {
