@@ -2,13 +2,8 @@
 --
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
-local mocklove = require "test_helpers/mock_love"
 
 describe("Cursor", function()
-  local cursor = require "cursor"
-
-  it("uses the current default font", function()
-    
+  it("moves the underlying tile", function()
   end)
-
 end)

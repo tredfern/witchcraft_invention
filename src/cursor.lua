@@ -3,7 +3,6 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local utf8 = require "utf8"
 local tt = require "text_tiles"
 local Cursor = {
   x = 1,

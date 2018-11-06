@@ -4,8 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Randomly", function()
+  package.path = "ext/artemis/?.lua;" .. package.path
   local randomly = require "randomly"
-  local mockrandom = require "ext/artemis/test_helpers/mock_random"
+  local mockrandom = require "test_helpers/mock_random"
 
   it("can select random items out of a list", function()
     mockrandom.setreturnvalues({5, 5, 2, 3})
