@@ -9,6 +9,9 @@ love.filesystem.setRequirePath(searchpath)
 
 local statemachine = require("statemachine")
 local scenes = statemachine:new({"update", "draw", "keypressed"})
+local Window = require "ui.window"
+print( Window.font)
+local w = Window:new(30, 0, 20, 25)
 
 function love.load()
   local TextTiles = require "text_tiles"
@@ -16,10 +19,12 @@ function love.load()
   scenes.title = require("scenes.title")
   scenes.game = require("scenes.game")
   scenes:change(scenes.game)
+  
 end
 
 function love.draw()
   scenes:draw()
+  w:draw()
 end
 
 function love.update()

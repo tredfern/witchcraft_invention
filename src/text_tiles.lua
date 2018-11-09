@@ -12,6 +12,7 @@ function TextTiles:new(fontname, size)
     return loaded_fonts[fontname][size]
   end
   local tt = {
+    name = fontname,
     size = size,
     font = love.graphics.newFont(paths.font_path .. fontname, size)
   }
@@ -22,6 +23,7 @@ function TextTiles:new(fontname, size)
 
   loaded_fonts[fontname] = loaded_fonts[fontname] or {}
   loaded_fonts[fontname][size] = tt
+  print("Loaded font:", fontname, size, tt.width, tt.height)
 
   return tt
 end
