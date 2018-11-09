@@ -28,11 +28,11 @@ function Terrain:get_terrain(name)
 end
 
 function Terrain:grass()
-  return self:new("grass", ".", {0,0.7,0,0.7})
+  return self:new("grass", utf8.char(0xFEB4), {0,0.7,0,0.7})
 end
 
 function Terrain:dirt()
-  return self:new("dirt", utf8.char(0x2058), {0.6, 0.6, 0.1, 0.7})
+  return self:new("dirt", utf8.char(0x22C5), {0.6, 0.6, 0.1, 0.7})
 end
 
 function Terrain:water()

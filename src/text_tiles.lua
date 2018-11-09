@@ -59,6 +59,4 @@ function TextTiles:new_tile(symbol, x, y, color)
   return t
 end
 
-TextTiles:new("FreeMono.ttf", 16):make_default()
-
 return TextTiles

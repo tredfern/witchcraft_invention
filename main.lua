@@ -9,11 +9,13 @@ love.filesystem.setRequirePath(searchpath)
 
 local statemachine = require("statemachine")
 local scenes = statemachine:new({"update", "draw", "keypressed"})
-scenes.title = require("scenes.title")
-scenes.game = require("scenes.game")
-scenes:change(scenes.game)
 
 function love.load()
+  local TextTiles = require "text_tiles"
+  TextTiles:new("FreeMono.ttf", 24):make_default()
+  scenes.title = require("scenes.title")
+  scenes.game = require("scenes.game")
+  scenes:change(scenes.game)
 end
 
 function love.draw()

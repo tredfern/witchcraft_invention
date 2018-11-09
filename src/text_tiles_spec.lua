@@ -11,12 +11,6 @@ describe("TextTiles", function()
 
   local TextTiles = require "text_tiles"
 
-  it("starts with a font as the default one", function()
-    assert.not_equal(nil, TextTiles.default)
-    assert.not_equal(nil, TextTiles.default.font)
-    assert.equal(16, TextTiles.default.size)
-  end)
-
   it("Loads a font and has a global tile size", function()
     local t = TextTiles:new("FreeMono.ttf", 10)
     assert.equals(10, t.size)
