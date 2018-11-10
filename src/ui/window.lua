@@ -8,7 +8,7 @@ local settings = require "ui.settings"
 local Window = {
   font = settings.font,
   symbols = {
-    topleft = utf8.char(0x250C), 
+    topleft = utf8.char(0x250C),
     topright = utf8.char(0x2510),
     bottomleft = utf8.char(0x2514),
     bottomright = utf8.char(0x2518),
@@ -17,20 +17,27 @@ local Window = {
   }
 }
 
-function Window:new(x, y, w, h)
-  local w = {
+function Window:new(x, y, w, h, color)
+  local win = {
     x = x,
     y = y,
     width = w,
     height = h,
-    color = {1,1,1,1}
+    color = color or {1,1,1,1},
+    background_color = {0,0,0,1}
   }
-  setmetatable(w, self)
+  setmetatable(win, self)
   self.__index = self
-  return w
+  return win
 end
 
 function Window:draw()
+  love.graphics.setColor(self.background_color)
+  love.graphics.rectangle("fill",
+    (self.x - 1) * self.font.width, (self.y - 1) * self.font.height,
+    self.width * self.font.width, self.height * self.font.height
+  )
+
   self.font:draw(self.symbols.topleft, self.x, self.y, self.color)
   self.font:draw(self.symbols.topright, self.x + self.width, self.y, self.color)
   self.font:draw(self.symbols.bottomleft, self.x, self.y + self.height, self.color)

@@ -19,7 +19,6 @@ function love.load()
   scenes.title = require("scenes.title")
   scenes.game = require("scenes.game")
   scenes:change(scenes.game)
-  
 end
 
 function love.draw()

@@ -23,7 +23,6 @@ function TextTiles:new(fontname, size)
 
   loaded_fonts[fontname] = loaded_fonts[fontname] or {}
   loaded_fonts[fontname][size] = tt
-  print("Loaded font:", fontname, size, tt.width, tt.height)
 
   return tt
 end

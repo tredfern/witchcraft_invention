@@ -2,8 +2,6 @@
 --
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
-local utf8 = require "utf8"
-
 describe("Terrain", function()
   local Terrain = require "terrain"
   it("grass", function()
