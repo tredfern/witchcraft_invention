@@ -31,5 +31,4 @@ function Map:get_height()
   return self.grid.height
 end
 
-
 return Map

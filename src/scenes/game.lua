@@ -9,19 +9,12 @@ local randomly = require("randomly")
 local TextTiles = require("text_tiles")
 local mf = TextTiles.default
 local cursor = require "cursor"
-local Map = require("map")
-local Terrain = require("terrain")
-local m = Map:new(100, 100)
-for x=1,100 do
-  for y=1,100 do
-    local t = randomly.choose({"grass", "dirt", "water"})
-    m:set_terrain(x, y, Terrain:get_terrain(t))
-  end
-end
+local MapGenerator = require "map_generator"
+local m = MapGenerator.create(100, 100)
+
 cursor.x, cursor.y = m:get_width() / 2, m:get_height() / 2
 
 function Game:draw()
-  love.graphics.setFont(mf.font)
   local sw, sh = mf:get_screen_tile_size()
   local left, top = math.floor(cursor.x - sw / 2), math.floor(cursor.y - sh / 2)
   for x=1,m:get_width() do
