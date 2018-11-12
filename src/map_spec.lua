@@ -18,4 +18,16 @@ describe("Map", function()
     assert.equals(382, m:get_height())
   end)
 
+  it("initializes the grid with a set of tiles to track information", function()
+    local m = Map:new(5, 5)
+    for x=1,5 do
+      for y=1,5 do
+        local tile = Map:get(x, y)
+        assert.equals(x, tile.x)
+        assert.equals(y, tile.y)
+        assert.equals(0, #tile.objects)
+      end
+    end
+  end)
+
 end)

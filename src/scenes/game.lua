@@ -5,7 +5,6 @@
 
 local Game = {}
 
-local randomly = require("randomly")
 local TextTiles = require("text_tiles")
 local mf = TextTiles.default
 local cursor = require "cursor"
@@ -17,11 +16,13 @@ cursor.x, cursor.y = m:get_width() / 2, m:get_height() / 2
 function Game:draw()
   local sw, sh = mf:get_screen_tile_size()
   local left, top = math.floor(cursor.x - sw / 2), math.floor(cursor.y - sh / 2)
+  love.graphics.origin()
+  love.graphics.translate(-left * mf.width, -top * mf.height)
   for x=1,m:get_width() do
     for y=1,m:get_height() do
       local t = m:get(x, y)
       if t then
-        mf:draw(t.symbol, x - left, y - top, t.color)
+        mf:draw(t.symbol, x, y, t.color)
       end
     end
   end
