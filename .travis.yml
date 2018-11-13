@@ -1,6 +1,6 @@
 # .travis.yml
 #
-  language: pytho
+  language: python
   sudo: false
  
   env:
