@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 local Map = {}
-local MapSquare = require "map_square"
 local Grid = require "ext.artemis.src.grid"
 
 function Map:new(width, height)
@@ -14,14 +13,6 @@ function Map:new(width, height)
   self.__index = self
   setmetatable(m, self)
   return m
-end
-
-function Map:initialize_grid()
-  for x=1,self:get_width() do
-    for y=1,self:get_height() do
-       
-    end
-  end
 end
 
 function Map:set_terrain(x, y, terrain)

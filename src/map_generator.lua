@@ -28,11 +28,11 @@ function MapGenerator.create(width, height)
     end
   end
 
-  for lakes = 1, math.random(width * height / 100) do
+  for _ = 1, math.random(width * height / 100) do
     MapGenerator.create_lake(map)
   end
 
-  for grassland = 1, math.random(width * height / 50) do
+  for _ = 1, math.random(width * height / 50) do
     MapGenerator.create_patch(map, Terrain:grass(), 5 + math.random(25))
   end
 
@@ -42,7 +42,7 @@ end
 function MapGenerator.create_patch(map, terrain, size)
   local x, y = math.random(map:get_width()), math.random(map:get_height())
 
-  for i=1,size do
+  for _=1,size do
     map:set_terrain(x, y, terrain)
     x = x + randomly.choose({-1, 0, 1})
     y = y + randomly.choose({-1, 0, 1})
