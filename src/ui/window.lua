@@ -3,17 +3,16 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local utf8 = require "utf8"
 local settings = require "ui.settings"
 local Window = {
   font = settings.font,
   symbols = {
-    topleft = utf8.char(0x250C),
-    topright = utf8.char(0x2510),
-    bottomleft = utf8.char(0x2514),
-    bottomright = utf8.char(0x2518),
-    horizontal = utf8.char(0x2500),
-    vertical = utf8.char(0x2502)
+    topleft = "┌",
+    topright = "┐",
+    bottomleft = "└",
+    bottomright = "┘",
+    horizontal = "─",
+    vertical = "│"
   }
 }
 

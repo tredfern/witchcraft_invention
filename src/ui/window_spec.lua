@@ -3,18 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 local mocklove = require "test_helpers/mock_love"
-local utf8 = require "utf8"
 
 describe("Window", function()
   local Window = require "src.ui.window"
-  it("has box drawing elements defined", function()
-    assert.equals(utf8.char(0x250C), Window.symbols.topleft)
-    assert.equals(utf8.char(0x2510), Window.symbols.topright)
-    assert.equals(utf8.char(0x2514), Window.symbols.bottomleft)
-    assert.equals(utf8.char(0x2518), Window.symbols.bottomright)
-    assert.equals(utf8.char(0x2500), Window.symbols.horizontal)
-    assert.equals(utf8.char(0x2502), Window.symbols.vertical)
-  end)
 
   it("has coordinates based on tile coordinates", function()
     local w = Window:new(10, 10, 20, 20)
