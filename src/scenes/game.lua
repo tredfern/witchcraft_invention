@@ -16,6 +16,19 @@ local MapGenerator = require "map_generator"
 local map = MapGenerator.create(250, 250)
 
 cursor.x, cursor.y = map:get_width() / 2, map:get_height() / 2
+local tree = require "entities.tree"
+local character = require "entities.character"
+local entities = { }
+for i=1,1000 do
+  local x, y = math.random(250), math.random(250)
+  entities[#entities + 1] = tree:new(x, y)
+end
+
+for i = 1, 10 do
+  local x, y = cursor.x + math.random(-5, 5), cursor.y + math.random(-5, 5)
+  entities[#entities + 1] = character:new(x, y)
+end
+
 
 function Game:draw()
   --Camera logic....
@@ -25,6 +38,9 @@ function Game:draw()
   love.graphics.translate(-left * mf.width, -top * mf.height)
 
   self:draw_map()
+  for _, v in ipairs(entities) do
+    mf:draw(v.symbol, v.x, v.y, v.color)
+  end
   cursor:draw()
 end
 
