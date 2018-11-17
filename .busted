@@ -1,6 +1,8 @@
 return {
   _all = {
-    ROOT = {"src/"}
+    ROOT = {"src/"},
+    lpath = "./src/?.lua;./src/?/?.lua;./src/?/init.lua;ext/artemis/?.lua;",
+    helper = "ext/artemis/test_helpers/busted_extensions.lua",
   },
   travis = {
     verbose = true,

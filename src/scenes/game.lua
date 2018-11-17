@@ -24,7 +24,7 @@ for _=1,1000 do
   entities[#entities + 1] = tree:new(x, y)
 end
 
-for _ = 1, 10 do
+for _ = 1, 1 do
   local x, y = cursor.x + math.random(-5, 5), cursor.y + math.random(-5, 5)
   entities[#entities + 1] = character:new(x, y)
 end
@@ -65,7 +65,7 @@ end
 function Game:draw_map()
   for x=1,map:get_width() do
     for y=1,map:get_height() do
-      local t = map:get(x, y)
+      local t = map:get_terrain(x, y)
       if t then
         mf:draw(t.symbol, x, y, t.color)
       end

@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local math_ext = require "ext.artemis.src.math_ext"
 local randomly = require "randomly"
 local Map = require "map"
 local Terrain = require "terrain"
@@ -44,8 +45,8 @@ function MapGenerator.create_patch(map, terrain, size)
 
   for _=1,size do
     map:set_terrain(x, y, terrain)
-    x = x + randomly.choose({-1, 0, 1})
-    y = y + randomly.choose({-1, 0, 1})
+    x = math_ext.clamp(x + randomly.choose({-1, 0, 1}), 1, map:get_width())
+    y = math_ext.clamp(y + randomly.choose({-1, 0, 1}), 1, map:get_height())
   end
 end
 

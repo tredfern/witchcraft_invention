@@ -3,19 +3,18 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local bag = require "ext.artemis.src.bag"
 local terrain = require "terrain"
-local tree = {}
+local MapSquare = {}
 
-function tree:new(x, y)
-  return {
+function MapSquare:new(x, y)
+  local ms = {
     x = x,
     y = y,
-    symbol = "♠",
-    color = {0,0.75, 0, 1},
-    disallowed_terrains = {
-      terrain:water()
-    }
+    objects = bag:new(),
+    terrain = terrain:none()
   }
+  return ms
 end
 
-return tree
+return MapSquare

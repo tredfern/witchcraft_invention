@@ -38,8 +38,13 @@ function Terrain:water()
   return self:new("water", "≈", {0.2, 0.5, 0.8, 0.8})
 end
 
+function Terrain:none()
+  return self:new("none", " ", {0, 0, 0, 0})
+end
+
 Terrain:grass()
 Terrain:dirt()
 Terrain:water()
+Terrain:none()
 
 return Terrain

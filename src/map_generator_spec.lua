@@ -33,9 +33,20 @@ describe("MapGenerator", function()
     local one_is_different = false
     for x=1,50 do
       for y=1,50 do
-        one_is_different = one_is_different or map:get(x,y).name ~= map2:get(x, y).name
+        one_is_different = one_is_different or map:get_terrain(x,y) ~= map2:get_terrain(x, y)
       end
     end
     assert.is_true(one_is_different)
+  end)
+
+  it("adds trees to terrain that is not water", function()
+    local map = MapGenerator.create(50, 50)
+    local found_tree = false
+
+    for x=1,50 do
+      for y=1,50 do
+        found_tree = found_tree or map:get(x,y).objects:contains("tree")
+      end
+    end
   end)
 end)
