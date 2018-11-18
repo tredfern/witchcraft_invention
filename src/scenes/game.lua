@@ -4,6 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 local Game = {}
+local tiny = require "ext.tiny-ecs"
+local world = tiny.world()
 
 -- Used for drawing map...
 local TextTiles = require("text_tiles")
@@ -13,22 +15,9 @@ local cursor = require "cursor"
 
 --- creates a map
 local MapGenerator = require "map_generator"
-local map = MapGenerator.create(250, 250)
+local map = MapGenerator.create(250, 250, world)
 
 cursor.x, cursor.y = map:get_width() / 2, map:get_height() / 2
-local tree = require "entities.tree"
-local character = require "entities.character"
-local entities = { }
-for _=1,1000 do
-  local x, y = math.random(250), math.random(250)
-  entities[#entities + 1] = tree:new(x, y)
-end
-
-for _ = 1, 1 do
-  local x, y = cursor.x + math.random(-5, 5), cursor.y + math.random(-5, 5)
-  entities[#entities + 1] = character:new(x, y)
-end
-
 
 function Game:draw()
   --Camera logic....
@@ -38,9 +27,6 @@ function Game:draw()
   love.graphics.translate(-left * mf.width, -top * mf.height)
 
   self:draw_map()
-  for _, v in ipairs(entities) do
-    mf:draw(v.symbol, v.x, v.y, v.color)
-  end
   cursor:draw()
 end
 

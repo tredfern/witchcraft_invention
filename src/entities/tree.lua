@@ -3,19 +3,25 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local tiny = require "ext.tiny-ecs"
+local bag = require "ext.artemis.src.bag"
 local terrain = require "terrain"
-local tree = {}
+
+local tree = {
+  is_tree = true,
+  symbol = "♠",
+  color = {0,0.75, 0, 1},
+  disallowed_terrains = bag:new({ terrain:water() }),
+  filter = tiny.requireAll("is_tree", "position")
+}
 
 function tree:new(x, y)
-  return {
-    x = x,
-    y = y,
-    symbol = "♠",
-    color = {0,0.75, 0, 1},
-    disallowed_terrains = {
-      terrain:water()
-    }
+  local t = {
+    position = { x = x, y = y},
   }
+  setmetatable(t, self)
+  self.__index = self
+  return t
 end
 
 return tree

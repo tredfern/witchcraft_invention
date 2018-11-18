@@ -3,7 +3,6 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local bag = require "ext.artemis.src.bag"
 local terrain = require "terrain"
 local MapSquare = {}
 
@@ -11,7 +10,6 @@ function MapSquare:new(x, y)
   local ms = {
     x = x,
     y = y,
-    objects = bag:new(),
     terrain = terrain:none()
   }
   return ms

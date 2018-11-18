@@ -11,7 +11,6 @@ describe("MapSquare", function()
     local ms = MapSquare:new(19, 39)
     assert.equals(19, ms.x)
     assert.equals(39, ms.y)
-    assert.equals(0, #ms.objects)
   end)
 
   it("initializes to none terrain", function()

@@ -7,6 +7,7 @@ local math_ext = require "ext.artemis.src.math_ext"
 local randomly = require "randomly"
 local Map = require "map"
 local Terrain = require "terrain"
+local tree = require "entities.tree"
 local MapGenerator = {}
 
 
@@ -15,7 +16,7 @@ function MapGenerator.seed(seed)
   MapGenerator.set_seed = true
 end
 
-function MapGenerator.create(width, height)
+function MapGenerator.create(width, height, world)
   if MapGenerator.set_seed then
     math.randomseed(MapGenerator.next_seed)
     MapGenerator.set_seed = false
@@ -37,6 +38,11 @@ function MapGenerator.create(width, height)
     MapGenerator.create_patch(map, Terrain:grass(), 5 + math.random(25))
   end
 
+  for _ = 1, math.random(width * height / 20) do
+    MapGenerator.create_forest(world, map)
+  end
+
+  world:refresh()
   return map
 end
 
@@ -54,7 +60,18 @@ function MapGenerator.create_lake(map)
   MapGenerator.create_patch(map, Terrain:water(), 10 + math.random(100))
 end
 
+function MapGenerator.create_forest(world, map)
+  local x, y = math.random(map:get_width()), math.random(map:get_height())
+  local size = 40
+
+  for _ = 1, size do
+    if not tree.disallowed_terrains:contains(map:get_terrain(x, y)) then
+      world:addEntity(tree:new(x, y))
+    end
+    x = math_ext.clamp(x + randomly.choose({-1, 0, 1}), 1, map:get_width())
+    y = math_ext.clamp(y + randomly.choose({-1, 0, 1}), 1, map:get_height())
+  end
+end
+
 MapGenerator.seed()
-
-
 return MapGenerator
