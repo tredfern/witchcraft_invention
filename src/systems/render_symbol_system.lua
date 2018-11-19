@@ -10,8 +10,8 @@ local text_tiles = require "text_tiles"
 RenderSymbolSystem.tiles = text_tiles:new("FreeMono.ttf", 24)
 RenderSymbolSystem.filter = tiny.requireAll("position", "symbol", "color")
 
-function RenderSymbolSystem:process(e, dt)
-  self.tiles:draw(e.symbol, e.position.x, e.position.y, e.color) 
+function RenderSymbolSystem:process(e, _)
+  self.tiles:draw(e.symbol, e.position.x, e.position.y, e.color)
 end
 
 return RenderSymbolSystem

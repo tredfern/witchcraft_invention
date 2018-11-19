@@ -16,7 +16,7 @@ describe("RenderSymbolSystem", function()
     mock_love.override_graphics("print", spy.new(function() end))
 
     RenderSymbolSystem:process(e)
-    
+
     assert.spy(drawCall).was.called_with(RenderSymbolSystem.tiles, e.symbol, e.position.x, e.position.y, e.color)
   end)
 
