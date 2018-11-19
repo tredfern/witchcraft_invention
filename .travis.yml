@@ -26,4 +26,4 @@
     - busted --run=travis
 
   after_success:
-    - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install
+    - luacov-coveralls --exclude $TRAVIS_BUILD_DIR/lua_install/*
