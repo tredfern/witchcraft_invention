@@ -30,15 +30,15 @@ function MapGenerator.create(width, height, world)
     end
   end
 
-  for _ = 1, math.random(width * height / 100) do
+  for _ = 1, math.random(math.floor(width * height / 100)) do
     MapGenerator.create_lake(map)
   end
 
-  for _ = 1, math.random(width * height / 50) do
+  for _ = 1, math.random(math.floor(width * height / 50)) do
     MapGenerator.create_patch(map, Terrain:grass(), 5 + math.random(25))
   end
 
-  for _ = 1, math.random(width * height / 20) do
+  for _ = 1, math.random(math.floor(width * height / 20)) do
     MapGenerator.create_forest(world, map)
   end
 

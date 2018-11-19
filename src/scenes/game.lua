@@ -6,6 +6,7 @@
 local Game = {}
 local tiny = require "ext.tiny-ecs"
 local world = tiny.world()
+world:addSystem(require "systems.render_symbol_system")
 
 -- Used for drawing map...
 local TextTiles = require("text_tiles")
@@ -27,6 +28,7 @@ function Game:draw()
   love.graphics.translate(-left * mf.width, -top * mf.height)
 
   self:draw_map()
+  world:update()
   cursor:draw()
 end
 

@@ -16,10 +16,10 @@ describe("MapGenerator", function()
   end)
 
   it("returns a randomly generated map of the specified size", function()
-    local map = MapGenerator.create(100, 100, world)
-    assert.equals(100, map:get_width())
-    assert.equals(100, map:get_height())
-    assert.not_equal(nil, map:get(26, 24))
+    local map = MapGenerator.create(12, 12, world)
+    assert.equals(12, map:get_width())
+    assert.equals(12, map:get_height())
+    assert.not_equal(nil, map:get(6, 4))
   end)
 
   it("can be seeded to return the same map each time", function()
@@ -36,12 +36,13 @@ describe("MapGenerator", function()
   end)
 
   it("if no seed is set it should make different maps", function()
-    local map = MapGenerator.create(50, 50, world)
-    local map2 = MapGenerator.create(50, 50, world)
+    local size = 20
+    local map = MapGenerator.create(size, size, world)
+    local map2 = MapGenerator.create(size, size, world)
 
     local one_is_different = false
-    for x=1,50 do
-      for y=1,50 do
+    for x=1,size do
+      for y=1,size do
         one_is_different = one_is_different or map:get_terrain(x,y) ~= map2:get_terrain(x, y)
       end
     end
