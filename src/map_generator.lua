@@ -42,6 +42,7 @@ function MapGenerator.create(width, height, world)
     MapGenerator.create_forest(world, map)
   end
 
+  world:addEntity(map)
   world:refresh()
   return map
 end

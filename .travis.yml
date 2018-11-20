@@ -26,4 +26,5 @@
     - busted --run=travis
 
   after_success:
+    - echo $TRAVIS_BUILD_DIR/lua_install
     - luacov-coveralls -e $TRAVIS_BUILD_DIR/lua_install
