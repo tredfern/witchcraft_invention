@@ -3,7 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local Map = {}
+local Map = {
+  is_map = true
+}
 local Grid = require "ext.artemis.src.grid"
 local MapSquare = require "map_square"
 

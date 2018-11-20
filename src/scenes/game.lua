@@ -6,18 +6,19 @@
 local Game = {}
 local tiny = require "ext.tiny-ecs"
 local world = tiny.world()
+world:addSystem(require "systems.render_map")
 world:addSystem(require "systems.render_symbol_system")
 
 -- Used for drawing map...
 local TextTiles = require("text_tiles")
 local mf = TextTiles.default
---
-local cursor = require "cursor"
 
 --- creates a map
 local MapGenerator = require "map_generator"
 local map = MapGenerator.create(250, 250, world)
 
+-- cursor or camera?
+local cursor = require "cursor"
 cursor.x, cursor.y = map:get_width() / 2, map:get_height() / 2
 
 local character = require "entities.character"
@@ -37,7 +38,6 @@ function Game:draw()
   love.graphics.origin()
   love.graphics.translate(-left * mf.width, -top * mf.height)
 
-  self:draw_map()
   world:update()
   cursor:draw()
 end
@@ -57,17 +57,6 @@ function Game:keypressed(key)
 
   if key == "right" then
     cursor.x = cursor.x + 1
-  end
-end
-
-function Game:draw_map()
-  for x=1,map:get_width() do
-    for y=1,map:get_height() do
-      local t = map:get_terrain(x, y)
-      if t then
-        mf:draw(t.symbol, x, y, t.color)
-      end
-    end
   end
 end
 

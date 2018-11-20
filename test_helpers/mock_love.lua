@@ -9,7 +9,8 @@ love = {
         rectangle = function(mode, x, y, w, h) end,
         setColor = function() end,
         setScissor = function() end,
-        newFont = function() return font end
+        newFont = function() return font end,
+        print = function() end
     },
     filesystem = {
         read = function(path)

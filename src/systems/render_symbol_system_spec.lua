@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("RenderSymbolSystem", function()
-  local mock_love = require "test_helpers.mock_love"
+  require "test_helpers.mock_love"
 
   it("renders an entity using the appropriate text_tile", function()
     local drawCall = spy.new(function() end)
@@ -12,8 +12,6 @@ describe("RenderSymbolSystem", function()
     RenderSymbolSystem.tiles.draw = drawCall
 
     local e = { position = { x = 10, y = 3 }, symbol = "A", color = {1,1,1,1}}
-    mock_love.override_graphics("setColor", spy.new(function() end))
-    mock_love.override_graphics("print", spy.new(function() end))
 
     RenderSymbolSystem:process(e)
 
