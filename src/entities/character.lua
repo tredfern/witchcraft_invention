@@ -3,15 +3,22 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local character = {}
+local tiny = require "ext.tiny-ecs"
+local position = require "components.position"
+local character = {
+  is_character = true,
+  symbol = "☺",
+  color = { 0.75, 0.75, 0.75, 1},
+  filter = tiny.requireAll("is_character", "position", "symbol", "color")
+}
 
 function character:new(x, y)
-  return {
-    x = x,
-    y = y,
-    symbol = "☺",
-    color = { 0.75, 0.75, 0.75, 1}
+  local c = {
+    position = position:new(x, y)
   }
+  setmetatable(c, self)
+  self.__index = self
+  return c
 end
 
 return character

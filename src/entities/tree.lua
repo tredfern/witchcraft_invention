@@ -6,6 +6,7 @@
 local tiny = require "ext.tiny-ecs"
 local bag = require "ext.artemis.src.bag"
 local terrain = require "terrain"
+local position = require "components.position"
 
 local tree = {
   is_tree = true,
@@ -17,7 +18,7 @@ local tree = {
 
 function tree:new(x, y)
   local t = {
-    position = { x = x, y = y},
+    position = position:new(x, y)
   }
   setmetatable(t, self)
   self.__index = self

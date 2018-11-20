@@ -38,7 +38,7 @@ function MapGenerator.create(width, height, world)
     MapGenerator.create_patch(map, Terrain:grass(), 5 + math.random(25))
   end
 
-  for _ = 1, math.random(math.floor(width * height / 20)) do
+  for _ = 1, math.random(math.floor(width * height / 80)) do
     MapGenerator.create_forest(world, map)
   end
 
