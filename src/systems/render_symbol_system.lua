@@ -5,9 +5,9 @@
 
 local tiny = require "ext.tiny-ecs"
 local RenderSymbolSystem = tiny.processingSystem()
-local text_tiles = require "text_tiles"
+local settings = require "settings"
 
-RenderSymbolSystem.tiles = text_tiles:new("FreeMono.ttf", 24)
+RenderSymbolSystem.tiles = settings.symbol_font
 RenderSymbolSystem.filter = tiny.requireAll("position", "symbol", "color")
 
 function RenderSymbolSystem:process(e, _)

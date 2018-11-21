@@ -4,9 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 local tiny = require "ext.tiny-ecs"
-local TextTiles = require "text_tiles"
+local settings = require "settings"
 local RenderMap = tiny.system({})
-RenderMap.tiles = TextTiles:new("FreeMono.ttf", 24)
+RenderMap.tiles = settings.symbol_font
 RenderMap.filter = tiny.requireAll("is_map")
 
 
