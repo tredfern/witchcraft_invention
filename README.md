@@ -1,17 +1,4 @@
-# Template for Starting New Love2D Projects
+[![Build Status](https://travis-ci.org/tredfern/witchcraft_invention.svg?branch=master)](https://travis-ci.org/tredfern/witchcraft_invention)
+[![Coverage Status](https://coveralls.io/repos/github/tredfern/witchcraft_invention/badge.svg?branch=master)](https://coveralls.io/github/tredfern/witchcraft_invention?branch=master)
 
-This is my starting point for new Love2D projects. I got tired of some of the templating I was doing and will update this with new helpers and potentially libraries that make sense.
 
-~~~~
-  git clone https://github.com/tredfern/love2d-template.git my-project
-  cd my-project
-
-  # Remove the git repository metadata
-  rm -rf .git/
-
-  # Start a brand new repository
-  git init .
-  git add .
- ~~~~
-
-Be aware that there is a LICENSE that is associated with this template. If your project uses a different license, be sure to change that.
