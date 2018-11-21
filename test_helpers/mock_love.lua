@@ -6,11 +6,14 @@ love = {
     graphics = {
         getWidth = function() return 1600 end,
         getHeight = function() return 900 end,
+        newFont = function() return font end,
+        origin = function() end,
+        print = function() end,
         rectangle = function(mode, x, y, w, h) end,
         setColor = function() end,
+        setFont = function() end,
         setScissor = function() end,
-        newFont = function() return font end,
-        print = function() end
+        translate = function() end
     },
     filesystem = {
         read = function(path)

@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local tt = require "text_tiles"
+local tt = require "settings"
 local Cursor = {
   x = 1,
   y = 1
@@ -15,7 +15,7 @@ Cursor.target = {
 }
 
 function Cursor:draw()
-  tt.default:draw(self.target.symbol, self.x, self.y, self.target.color)
+  tt.symbol_font:draw(self.target.symbol, self.x, self.y, self.target.color)
 end
 
 return Cursor

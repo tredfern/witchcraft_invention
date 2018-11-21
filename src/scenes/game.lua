@@ -6,12 +6,13 @@
 local Game = {}
 local tiny = require "ext.tiny-ecs"
 local world = tiny.world()
+local settings = require "settings"
+
 world:addSystem(require "systems.render_map")
 world:addSystem(require "systems.render_symbol_system")
 
 -- Used for drawing map...
-local TextTiles = require("text_tiles")
-local mf = TextTiles.default
+local mf = settings.symbol_font
 
 --- creates a map
 local MapGenerator = require "map_generator"
@@ -30,6 +31,8 @@ local stockpile = {
   color = {1,0,0,1}
 }
 world:addEntity(stockpile)
+
+Game.world = world
 
 function Game:draw()
   --Camera logic....
