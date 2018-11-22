@@ -3,9 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local settings = require "ui.settings"
+local settings = require "settings"
 local Window = {
-  font = settings.font,
+  font = settings.ui_font,
   symbols = {
     topleft = "┌",
     topright = "┐",
