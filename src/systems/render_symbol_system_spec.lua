@@ -5,13 +5,14 @@
 
 describe("RenderSymbolSystem", function()
   require "test_helpers.mock_love"
+  local components = require "components"
 
   it("renders an entity using the appropriate text_tile", function()
     local drawCall = spy.new(function() end)
     local RenderSymbolSystem = require "systems.render_symbol_system"
     RenderSymbolSystem.tiles.draw = drawCall
 
-    local e = { position = { x = 10, y = 3 }, symbol = "A", color = {1,1,1,1}}
+    local e = { position = components.position:new(10, 3), symbol = "A", color = {1,1,1,1}}
 
     RenderSymbolSystem:process(e)
 
@@ -39,11 +40,11 @@ describe("RenderSymbolSystem", function()
     local drawCall = spy.new(function() end)
     local rs = require "systems.render_symbol_system"
     rs.tiles.draw = drawCall
-    local e1 = { 
-      position = require "components.position":new(4, 4), 
-      size = require "components.size":new(3,4), 
-      symbol = "A", 
-      color = {1,1,1,1} 
+    local e1 = {
+      position = components.position:new(4, 4),
+      size = components.size:new(3,4),
+      symbol = "A",
+      color = {1,1,1,1}
     }
     rs:process(e1)
 
