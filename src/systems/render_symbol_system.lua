@@ -11,7 +11,13 @@ RenderSymbolSystem.tiles = settings.symbol_font
 RenderSymbolSystem.filter = tiny.requireAll("position", "symbol", "color")
 
 function RenderSymbolSystem:process(e, _)
-  self.tiles:draw(e.symbol, e.position.x, e.position.y, e.color)
+  local size = e.size or { width = 1, height = 1 }
+
+  for x=0,size.width - 1 do
+    for y=0,size.height - 1 do
+      self.tiles:draw(e.symbol, e.position.x + x, e.position.y + y, e.color)
+    end
+  end
 end
 
 return RenderSymbolSystem

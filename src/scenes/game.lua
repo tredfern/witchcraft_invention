@@ -25,12 +25,8 @@ cursor.x, cursor.y = map:get_width() / 2, map:get_height() / 2
 local character = require "entities.character"
 world:addEntity(character:new(cursor.x, cursor.y))
 
-local stockpile = {
-  position = {x = cursor.x + 5, y = cursor.y + 5},
-  symbol = "#######\n#######\n#######\n#######",
-  color = {1,0,0,1}
-}
-world:addEntity(stockpile)
+local stockpile = require "entities.stockpile"
+world:addEntity(stockpile:new(cursor.x + 10, cursor.y + 10, 6, 6))
 
 Game.world = world
 

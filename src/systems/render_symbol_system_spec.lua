@@ -34,4 +34,24 @@ describe("RenderSymbolSystem", function()
     assert.equals(1, #RenderSymbolSystem.entities)
     assert.array_includes(e1, RenderSymbolSystem.entities)
   end)
+
+  it("if the entity has a size then it will repeatedly render the symbol", function()
+    local drawCall = spy.new(function() end)
+    local rs = require "systems.render_symbol_system"
+    rs.tiles.draw = drawCall
+    local e1 = { 
+      position = require "components.position":new(4, 4), 
+      size = require "components.size":new(3,4), 
+      symbol = "A", 
+      color = {1,1,1,1} 
+    }
+    rs:process(e1)
+
+    assert.spy(drawCall).was.called_with(rs.tiles, e1.symbol, 4, 4, e1.color)
+    assert.spy(drawCall).was.called_with(rs.tiles, e1.symbol, 5, 4, e1.color)
+    assert.spy(drawCall).was.called_with(rs.tiles, e1.symbol, 6, 4, e1.color)
+    assert.spy(drawCall).was.called_with(rs.tiles, e1.symbol, 4, 5, e1.color)
+    assert.spy(drawCall).was.called_with(rs.tiles, e1.symbol, 4, 6, e1.color)
+    assert.spy(drawCall).was.called_with(rs.tiles, e1.symbol, 4, 7, e1.color)
+  end)
 end)

@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Game", function()
-  local mock_love = require "test_helpers.mock_love"
+  require "test_helpers.mock_love"
   local game = require "scenes.game"
 
   it("configures systems to be used for rendering", function()
