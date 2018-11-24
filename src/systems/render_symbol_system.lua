@@ -9,6 +9,7 @@ local settings = require "settings"
 
 RenderSymbolSystem.tiles = settings.symbol_font
 RenderSymbolSystem.filter = tiny.requireAll("position", "symbol", "color")
+RenderSymbolSystem.is_draw_system = true
 
 function RenderSymbolSystem:process(e, _)
   local size = e.size or { width = 1, height = 1 }

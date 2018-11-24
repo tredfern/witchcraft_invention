@@ -24,6 +24,9 @@ love = {
             return content
         end
     },
+    timer = {
+      getDelta = function() return 0.03 end
+    },
     handlers = { }
 }
 return {

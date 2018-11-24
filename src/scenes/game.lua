@@ -5,11 +5,16 @@
 
 local Game = {}
 local tiny = require "ext.tiny-ecs"
+local systems = require "systems"
 local world = tiny.world()
 local settings = require "settings"
 
-world:addSystem(require "systems.render_map")
-world:addSystem(require "systems.render_symbol_system")
+world:addSystem(systems.render_map)
+world:addSystem(systems.render_symbols)
+world:addSystem(systems.assign_tasks)
+
+local draw_filter = tiny.requireAll("is_draw_system")
+local update_filter = tiny.rejectAny("is_draw_system")
 
 -- Used for drawing map...
 local mf = settings.symbol_font
@@ -37,8 +42,13 @@ function Game:draw()
   love.graphics.origin()
   love.graphics.translate(-left * mf.width, -top * mf.height)
 
-  world:update()
+  local dt = love.timer.getDelta()
+  world:update(dt, draw_filter)
   cursor:draw()
+end
+
+function Game:update(dt)
+  world:update(dt, update_filter)
 end
 
 function Game:keypressed(key)

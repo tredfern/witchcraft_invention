@@ -6,10 +6,14 @@
 describe("RenderSymbolSystem", function()
   require "test_helpers.mock_love"
   local components = require "components"
+  local RenderSymbolSystem = require "systems.render_symbol_system"
+
+  it("is a drawing system", function()
+    assert.is_true(RenderSymbolSystem.is_draw_system)
+  end)
 
   it("renders an entity using the appropriate text_tile", function()
     local drawCall = spy.new(function() end)
-    local RenderSymbolSystem = require "systems.render_symbol_system"
     RenderSymbolSystem.tiles.draw = drawCall
 
     local e = { position = components.position:new(10, 3), symbol = "A", color = {1,1,1,1}}
@@ -20,7 +24,6 @@ describe("RenderSymbolSystem", function()
   end)
 
   it("filters based on whether an entity has position, symbol, and color attributes", function()
-    local RenderSymbolSystem = require "systems.render_symbol_system"
     local tiny = require "ext.tiny-ecs"
     local world = tiny.world()
     local e1 = { position = { x = 10, y = 10 } , symbol = "A", color = {1,1,1,1} }

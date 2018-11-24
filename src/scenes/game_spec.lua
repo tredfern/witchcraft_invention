@@ -6,22 +6,34 @@
 describe("Game", function()
   require "test_helpers.mock_love"
   local game = require "scenes.game"
+  local systems = require "systems"
 
   it("configures systems to be used for rendering", function()
-    assert.array_includes(require("systems.render_map"), game.world.systems)
-    assert.array_includes(require("systems.render_symbol_system"), game.world.systems)
+    assert.array_includes(systems.render_map, game.world.systems)
+    assert.array_includes(systems.render_symbols, game.world.systems)
   end)
 
-  it("draws only systems that have the render_system flag set", function()
-    local rm = require("systems.render_map")
-    local rs = require("systems.render_symbol_system")
-    rm.update = spy.new(function() end)
-    rs.update = spy.new(function() end)
+  it("configures systems used for updating", function()
+    assert.array_includes(systems.assign_tasks, game.world.systems)
+  end)
+
+  it("draws only systems that have the is_draw_system flag set", function()
+    systems.render_map.update = spy.new(function() end)
+    systems.render_symbols.update = spy.new(function() end)
+    systems.assign_tasks.update = spy.new(function() end)
     game:draw()
-    assert.spy(rm.update).was.called()
-    assert.spy(rs.update).was.called()
+    assert.spy(systems.render_map.update).was.called()
+    assert.spy(systems.render_symbols.update).was.called()
+    assert.spy(systems.assign_tasks.update).was.not_called()
   end)
 
   it("updates only systems that do not have the render_system flag set", function()
+    systems.render_map.update = spy.new(function() end)
+    systems.render_symbols.update = spy.new(function() end)
+    systems.assign_tasks.update = spy.new(function() end)
+    game:update()
+    assert.spy(systems.render_map.update).was.not_called()
+    assert.spy(systems.render_symbols.update).was.not_called()
+    assert.spy(systems.assign_tasks.update).was.called()
   end)
 end)

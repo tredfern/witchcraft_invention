@@ -8,6 +8,7 @@ local settings = require "settings"
 local RenderMap = tiny.system({})
 RenderMap.tiles = settings.symbol_font
 RenderMap.filter = tiny.requireAll("is_map")
+RenderMap.is_draw_system = true
 
 
 function RenderMap:update()

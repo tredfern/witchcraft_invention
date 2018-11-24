@@ -7,6 +7,11 @@ describe("RenderMap", function()
   require "test_helpers.mock_love"
   local tiny = require "ext.tiny-ecs"
   local terrain = require "terrain"
+  local RenderMap = require "systems.render_map"
+
+  it("is a drawing system", function()
+    assert.is_true(RenderMap.is_draw_system)
+  end)
 
   it("draws the map by looping through each tile and drawing it (if it has terrain)", function()
     local world = tiny.world()
@@ -15,7 +20,6 @@ describe("RenderMap", function()
     world:addEntity(map)
 
     local drawCall = spy.new(function() end)
-    local RenderMap = require "systems.render_map"
     RenderMap.tiles.draw = drawCall
 
     world:addSystem(RenderMap)

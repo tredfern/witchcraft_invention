@@ -16,6 +16,10 @@ describe("System - Assign Tasks ", function()
     world:refresh()
   end)
 
+  it("is an updates system", function()
+    assert.is.falsy(AssignTasks.is_draw_system)
+  end)
+
   it("clears out all tasks and entities when removed from world", function()
     local task = { is_task = true }
     local worker = { is_worker = true }
