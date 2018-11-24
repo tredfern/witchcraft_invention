@@ -33,7 +33,7 @@ describe("ProcessUserCommands", function()
     ProcessUserCommands:update()
     mock_love.simulate_key_up("c")
     ProcessUserCommands:update()
-    
+
     local cw = find_entity_helper:by_name(world.entities, "task.chopwood"):first()
     assert.equals(tree, cw.target)
   end)

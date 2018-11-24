@@ -34,8 +34,8 @@ end
 
 function ProcessUserCommands:dochopwood()
   local in_position = find_entities:by_position(
-    self.world.entities, 
-    self.cursor.position.x, 
+    self.world.entities,
+    self.cursor.position.x,
     self.cursor.position.y)
 
   for _, v in ipairs(in_position) do

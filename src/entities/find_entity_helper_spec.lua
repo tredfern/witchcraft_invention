@@ -11,7 +11,7 @@ describe("find_entity_helper", function()
   it("can find an entities by position", function()
     local world = tiny.world()
     local e1 = {
-      position = components.position:new(3, 5) 
+      position = components.position:new(3, 5)
     }
     local e2 = {
       position = components.position:new(6, 4)

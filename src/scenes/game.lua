@@ -26,7 +26,7 @@ local map = MapGenerator.create(250, 250, world)
 
 -- cursor or camera?
 local cursor = require "entities.cursor":new(
-  map:get_width() / 2, 
+  map:get_width() / 2,
   map:get_height() / 2
 )
 world:addEntity(cursor)
