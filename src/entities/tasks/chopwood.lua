@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local chopwood = {
+  name = "task.chopwood",
   is_task = true
 }
 
@@ -14,6 +15,7 @@ function chopwood:new(tree)
   }
   setmetatable(c, self)
   self.__index = self
+  print("adding chopwood task")
   return c
 end
 

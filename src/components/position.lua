@@ -15,7 +15,7 @@ function position:new(x, y)
   return p
 end
 
-function position:move(x, y)
+function position:move_to(x, y)
   self.x, self.y = x, y
 end
 

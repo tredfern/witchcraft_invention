@@ -11,6 +11,7 @@ local settings = require "settings"
 
 world:addSystem(systems.render_map)
 world:addSystem(systems.render_symbols)
+world:addSystem(systems.process_user_commands)
 world:addSystem(systems.assign_tasks)
 
 local draw_filter = tiny.requireAll("is_draw_system")
@@ -24,27 +25,29 @@ local MapGenerator = require "map_generator"
 local map = MapGenerator.create(250, 250, world)
 
 -- cursor or camera?
-local cursor = require "cursor"
-cursor.x, cursor.y = map:get_width() / 2, map:get_height() / 2
+local cursor = require "entities.cursor":new(
+  map:get_width() / 2, 
+  map:get_height() / 2
+)
+world:addEntity(cursor)
 
 local character = require "entities.character"
-world:addEntity(character:new(cursor.x, cursor.y))
+world:addEntity(character:new(cursor.position.x, cursor.position.y))
 
 local stockpile = require "entities.stockpile"
-world:addEntity(stockpile:new(cursor.x + 10, cursor.y + 10, 6, 6))
+world:addEntity(stockpile:new(cursor.position.x + 10, cursor.position.y + 10, 6, 6))
 
 Game.world = world
 
 function Game:draw()
   --Camera logic....
   local sw, sh = mf:get_screen_tile_size()
-  local left, top = math.floor(cursor.x - sw / 2), math.floor(cursor.y - sh / 2)
+  local left, top = math.floor(cursor.position.x - sw / 2), math.floor(cursor.position.y - sh / 2)
   love.graphics.origin()
   love.graphics.translate(-left * mf.width, -top * mf.height)
 
   local dt = love.timer.getDelta()
   world:update(dt, draw_filter)
-  cursor:draw()
 end
 
 function Game:update(dt)
@@ -53,19 +56,19 @@ end
 
 function Game:keypressed(key)
   if key == "up" then
-    cursor.y = cursor.y - 1
+    cursor.position.y = cursor.position.y - 1
   end
 
   if key == "down" then
-    cursor.y = cursor.y + 1
+    cursor.position.y = cursor.position.y + 1
   end
 
   if key == "left" then
-    cursor.x = cursor.x - 1
+    cursor.position.x = cursor.position.x - 1
   end
 
   if key == "right" then
-    cursor.x = cursor.x + 1
+    cursor.position.x = cursor.position.x + 1
   end
 end
 

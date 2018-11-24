@@ -19,7 +19,7 @@ describe("position", function()
 
   it("has a method to move to a different position", function()
     local pos = require "components.position":new(4, 5)
-    pos:move(2, 3)
+    pos:move_to(2, 3)
     assert.equals(2, pos.x)
     assert.equals(3, pos.y)
   end)

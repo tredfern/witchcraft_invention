@@ -15,6 +15,7 @@ describe("Game", function()
 
   it("configures systems used for updating", function()
     assert.array_includes(systems.assign_tasks, game.world.systems)
+    assert.array_includes(systems.process_user_commands, game.world.systems)
   end)
 
   it("draws only systems that have the is_draw_system flag set", function()

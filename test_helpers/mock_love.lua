@@ -2,6 +2,7 @@ local font = {
   getWidth = function() return 10 end,
   getHeight = function() return 10 end
 }
+local key_down = {}
 love = {
     graphics = {
         getWidth = function() return 1600 end,
@@ -24,6 +25,11 @@ love = {
             return content
         end
     },
+    keyboard = {
+      isDown = function(key)
+        return key_down[key] ~= nil
+      end
+    },
     timer = {
       getDelta = function() return 0.03 end
     },
@@ -32,5 +38,11 @@ love = {
 return {
   override_graphics = function(v, r)
     love.graphics[v] = r
+  end,
+  simulate_key_down = function(key)
+    key_down[key] = true
+  end,
+  simulate_key_up = function(key)
+    key_down[key] = nil
   end
 }
