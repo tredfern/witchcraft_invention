@@ -27,8 +27,7 @@ end
 
 function chopwood:next_action()
   if self.current_worker then
-    if position.same(self.current_worker.position, self.target.position) then
-    else
+    if not position.same(self.current_worker.position, self.target.position) then
       return actions.move_to:new(self.current_worker, self.target.position)
     end
   end

@@ -8,7 +8,6 @@ describe("Systems - perform_actions", function()
   local systems = require "systems"
   local tiny = require "ext.tiny-ecs"
   local world = tiny.world()
-  local queue = require "ext.artemis.src.queue"
 
   before_each(function()
     world:clearEntities()
