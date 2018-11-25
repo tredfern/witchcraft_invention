@@ -8,11 +8,13 @@ local tiny = require "ext.tiny-ecs"
 local systems = require "systems"
 local world = tiny.world()
 local settings = require "settings"
-
-world:addSystem(systems.render_map)
-world:addSystem(systems.render_symbols)
-world:addSystem(systems.process_user_commands)
-world:addSystem(systems.assign_tasks)
+world:add(
+  systems.render_map,
+  systems.render_symbols,
+  systems.process_user_commands,
+  systems.assign_tasks,
+  systems.perform_actions
+)
 
 local draw_filter = tiny.requireAll("is_draw_system")
 local update_filter = tiny.rejectAny("is_draw_system")
@@ -50,7 +52,8 @@ function Game:draw()
   world:update(dt, draw_filter)
 end
 
-function Game:update(dt)
+function Game:update()
+  local dt = love.timer.getDelta()
   world:update(dt, update_filter)
 end
 

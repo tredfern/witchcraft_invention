@@ -5,8 +5,10 @@
 
 local tiny = require "ext.tiny-ecs"
 local position = require "components.position"
+local queue = require "ext.artemis.src.queue"
 local character = {
   is_character = true,
+  is_worker = true,
   symbol = "☺",
   color = { 0.75, 0.75, 0.75, 1},
   filter = tiny.requireAll("is_character", "position", "symbol", "color")
@@ -14,7 +16,9 @@ local character = {
 
 function character:new(x, y)
   local c = {
-    position = position:new(x, y)
+    position = position:new(x, y),
+    action_queue = queue:new(),
+    speed = 0.2
   }
   setmetatable(c, self)
   self.__index = self

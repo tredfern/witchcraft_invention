@@ -3,7 +3,14 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local position = {}
+local position = { }
+
+function position.same(a, b)
+  return a.x == b.x and a.y == b.y
+end
+position.__eq = position.same
+
+
 
 function position:new(x, y)
   local p = {
