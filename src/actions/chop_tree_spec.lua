@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("actions - chop_tree", function()
-  require "test_helpers.mock_love"
   local systems = require "systems"
   local actions = require "actions"
   local tree = require "entities.tree"

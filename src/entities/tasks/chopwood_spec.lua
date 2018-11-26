@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Task - Chop Wood", function()
-  require "test_helpers.mock_love"
   local chopwood = require "entities.tasks.chopwood"
   local tree = require "entities.tree"
   local character = require "entities.character"

@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("systems - Entity Factory", function()
-  require "test_helpers.mock_love"
   local systems = require "systems"
   local tiny = require "ext.tiny-ecs"
   local world = tiny.world()

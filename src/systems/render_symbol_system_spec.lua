@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("RenderSymbolSystem", function()
-  require "test_helpers.mock_love"
   local components = require "components"
   local RenderSymbolSystem = require "systems.render_symbol_system"
 

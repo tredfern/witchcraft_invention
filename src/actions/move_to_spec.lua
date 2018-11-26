@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("actions.move_to", function()
-  require "test_helpers.mock_love"
   local actions = require "actions"
   local components = require "components"
 

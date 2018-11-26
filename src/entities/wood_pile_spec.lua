@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Entity - wood_pile", function()
-  require "test_helpers.mock_love"
   local wood_pile = require "entities.wood_pile"
 
   it("should be drawable", function()

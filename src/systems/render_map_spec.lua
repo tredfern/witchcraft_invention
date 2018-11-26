@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("RenderMap", function()
-  require "test_helpers.mock_love"
   local tiny = require "ext.tiny-ecs"
   local terrain = require "terrain"
   local RenderMap = require "systems.render_map"

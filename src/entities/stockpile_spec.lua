@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Stockpile", function()
-  require "test_helpers.mock_love"
   local stockpile = require "entities.stockpile"
 
   it("has a symbol and color to render", function()

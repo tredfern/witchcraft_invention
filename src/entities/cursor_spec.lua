@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Cursor", function()
-  require "test_helpers.mock_love"
   local cursor = require "entities.cursor"
 
   it("has a position for the cursor", function()

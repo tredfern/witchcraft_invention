@@ -3,11 +3,10 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local mocklove = require "test_helpers/mock_love"
-
 describe("TextTiles", function()
+  local mock_love = require "test_helpers.mock_love"
   local font = { getWidth = function() return 10 end, getHeight = function() return 11 end }
-  mocklove.override_graphics("newFont", spy.new(function() return font end))
+  mock_love.override_graphics("newFont", spy.new(function() return font end))
 
   local TextTiles = require "text_tiles"
 
@@ -29,9 +28,9 @@ describe("TextTiles", function()
   end)
 
   it("can be drawn to a specific screen location", function()
-    mocklove.override_graphics("setFont", spy.new(function() end))
-    mocklove.override_graphics("setColor", spy.new(function() end))
-    mocklove.override_graphics("print", spy.new(function() end))
+    mock_love.override_graphics("setFont", spy.new(function() end))
+    mock_love.override_graphics("setColor", spy.new(function() end))
+    mock_love.override_graphics("print", spy.new(function() end))
     local t = TextTiles:new("FreeMono.ttf", 10)
     local character = "A"
     local x = 3
@@ -70,5 +69,4 @@ describe("TextTiles", function()
     t:make_default()
     assert.equals(t, TextTiles.default)
   end)
-
 end)

@@ -2,9 +2,9 @@
 --
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
-local mocklove = require "test_helpers/mock_love"
 
 describe("Window", function()
+  local mock_love = require "test_helpers.mock_love"
   local Window = require "src.ui.window"
 
   it("has coordinates based on tile coordinates", function()
@@ -41,8 +41,9 @@ describe("Window", function()
     local rect = spy.new(function() end)
     local w = Window:new(1, 1, 3, 3, {1,1,1,1})
     w.background_color = {0, 0, 1, 1}
-    mocklove.override_graphics("rectangle", rect)
+    mock_love.override_graphics("rectangle", rect)
     w:draw()
-    assert.spy(rect).was.called_with("fill", 0, 0, 30, 30)
+    assert.spy(rect).was.called()
+    assert.spy(rect).was.called_with("fill", 0, 0, 30, 33)
   end)
 end)
