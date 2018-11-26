@@ -68,4 +68,17 @@ describe("System - Assign Tasks ", function()
     AssignTasks:update()
     assert.equals(nil, worker.current_task)
   end)
+
+  it("removes a task if it is done and clears the worker so it's free to work on another task", function()
+    local worker = { is_worker = true }
+    local task1 = { is_task = true }
+    world:add(task1, worker)
+    world:refresh()
+    AssignTasks:update()
+    task1.done = true
+    AssignTasks:update()
+    world:refresh()
+    assert.equals(nil, worker.current_task)
+    assert.is_not.array_includes(task1, world.entities)
+  end)
 end)

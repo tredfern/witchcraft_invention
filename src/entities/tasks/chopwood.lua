@@ -13,22 +13,29 @@ local chopwood = {
 function chopwood:new(tree)
   local c = {
     target = tree,
-    completed = false
+    done = false
   }
   setmetatable(c, self)
   self.__index = self
   return c
 end
 
-function chopwood:done()
+function chopwood:finish()
   self.target = nil
-  self.completed = true
+  self.done = true
 end
 
 function chopwood:next_action()
+  if self.target.is_removed then
+    self:finish()
+    return nil
+  end
+
   if self.current_worker then
     if not position.same(self.current_worker.position, self.target.position) then
       return actions.move_to:new(self.current_worker, self.target.position)
+    else
+      return actions.chop_tree:new(self.current_worker, self.target)
     end
   end
   return nil

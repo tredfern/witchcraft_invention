@@ -22,6 +22,11 @@ function move_to:execute(dt)
   local owner = self.owner
   local target = self.target
 
+  if self.done or owner.position:same(target) then
+    self.done = true
+    return
+  end
+
   self.progress = self.progress + dt
   if self.progress >= owner.speed then
     self.progress = 0

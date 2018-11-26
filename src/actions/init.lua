@@ -4,5 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 return {
-  move_to = require "actions.move_to"
+  chop_tree = require "actions.chop_tree",
+  move_to = require "actions.move_to",
 }

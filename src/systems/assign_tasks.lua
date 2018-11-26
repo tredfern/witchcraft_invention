@@ -17,14 +17,33 @@ local function unassigned_worker(w)
   return w.current_task == nil
 end
 
-function AssignTasks:update()
-  local w = self.workers:first(unassigned_worker)
+local function assigned_worker(w)
+  return w.current_task ~= nil
+end
 
-  while w ~= nil and not self.tasks:isempty() do
+function AssignTasks:update()
+  self:check_for_completion()
+  self:assign_tasks()
+end
+
+function AssignTasks:check_for_completion()
+  local check_status = self.workers:where(assigned_worker)
+  for _, w in ipairs(check_status) do
+    if w.current_task.done then
+      self.world:removeEntity(w.current_task)
+      w.current_task = nil
+    end
+  end
+end
+
+function AssignTasks:assign_tasks()
+  local check_status = self.workers:where(unassigned_worker)
+  for _, w in ipairs(check_status) do
     local t = self.tasks:dequeue()
-    t.current_worker = w
-    w.current_task = t
-    w = self.workers:first(unassigned_worker)
+    if t then
+      t.current_worker = w
+      w.current_task = t
+    end
   end
 end
 

@@ -6,6 +6,13 @@
 describe("character", function()
   local character = require "entities.character"
 
+  it("is drawable", function()
+    local c = character:new(10, 10)
+    assert.is_not.equal(nil, c.position)
+    assert.is_not.equal(nil, c.symbol)
+    assert.is_not.equal(nil, c.color)
+  end)
+
   it("has a filter that can find just characters", function()
     local c = character:new(10, 10)
     assert.is_true(character.filter(nil, c))

@@ -4,10 +4,12 @@
 -- https://opensource.org/licenses/MIT
 
 describe("actions.move_to", function()
+  require "test_helpers.mock_love"
   local actions = require "actions"
+  local components = require "components"
 
   it("has a target position to move to", function()
-    local owner = { position = {x = 1, y = 3 } }
+    local owner = { position = components.position:new(1, 3) }
     local a = actions.move_to:new(owner, {x = 3, y = 4})
     assert.equals(owner, a.owner)
     assert.equals(3, a.target.x)
@@ -15,7 +17,7 @@ describe("actions.move_to", function()
   end)
 
   it("will attempt to move the character based on it's speed to the target location", function()
-    local owner = { position = {x = 1, y = 3 }, speed = 0.1 }
+    local owner = { position = components.position:new(1, 3), speed = 0.1 }
     local a = actions.move_to:new(owner, {x = 3, y = 4})
     a:execute(0.1)
     assert.equals(2, owner.position.x)
@@ -23,7 +25,7 @@ describe("actions.move_to", function()
   end)
 
   it("will attempt to move the character based on it's speed to the target location - opposite direction", function()
-    local owner = { position = {x = 3, y = 4 }, speed = 0.1 }
+    local owner = { position = components.position:new(3, 4), speed = 0.1 }
     local a = actions.move_to:new(owner, {x = 1, y = 3})
     a:execute(0.1)
     assert.equals(2, owner.position.x)
@@ -31,7 +33,7 @@ describe("actions.move_to", function()
   end)
 
   it("will wait until enough time has passed based on character speed to move to the next tile", function()
-    local owner = { position = {x = 1, y = 3 }, speed = 0.3 }
+    local owner = { position = components.position:new(1, 3), speed = 0.3 }
     local a = actions.move_to:new(owner, {x = 3, y = 4})
     a:execute(0.1)
     assert.equals(1, owner.position.x)
@@ -45,5 +47,12 @@ describe("actions.move_to", function()
     assert.equals(2, owner.position.x)
     assert.equals(4, owner.position.y)
     assert.equals(0, a.progress)
+  end)
+
+  it("move to is done if the owner and target are the same coordinates", function()
+    local owner = { position = components.position:new(1, 3), speed = 0.3}
+    local a = actions.move_to:new(owner, { x = 1, y = 3 })
+    a:execute(0.3)
+    assert.is_true(a.done)
   end)
 end)

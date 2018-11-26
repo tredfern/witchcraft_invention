@@ -6,11 +6,12 @@
 local Game = {}
 local tiny = require "ext.tiny-ecs"
 local systems = require "systems"
-local world = tiny.world()
 local settings = require "settings"
-world:add(
+
+local world = tiny.world(
   systems.render_map,
   systems.render_symbols,
+  systems.entity_factory,
   systems.process_user_commands,
   systems.assign_tasks,
   systems.perform_actions
