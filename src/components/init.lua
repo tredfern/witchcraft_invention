@@ -4,6 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 return {
+  inventory = require "components.inventory",
   position = require "components.position",
   size = require "components.size"
 }

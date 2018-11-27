@@ -6,4 +6,5 @@
 return {
   chop_tree = require "actions.chop_tree",
   move_to = require "actions.move_to",
+  pick_up = require "actions.pick_up"
 }

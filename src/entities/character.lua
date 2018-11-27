@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local tiny = require "ext.tiny-ecs"
-local position = require "components.position"
+local components = require "components"
 
 local character = {
   is_character = true,
@@ -16,8 +16,9 @@ local character = {
 
 function character:new(x, y)
   local c = {
-    position = position:new(x, y),
-    speed = 0.2
+    inventory = components.inventory:new(),
+    position = components.position:new(x, y),
+    speed = 0.2,
   }
   setmetatable(c, self)
   self.__index = self
