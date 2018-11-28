@@ -7,7 +7,7 @@ local action = {}
 
 function action:new(settings)
   assert(settings.name, "Action requires a name")
-  local a = settings 
+  local a = settings
   setmetatable(a, self)
   self.__index = self
   return a

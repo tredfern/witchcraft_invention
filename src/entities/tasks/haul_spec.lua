@@ -47,7 +47,7 @@ describe("Tasks - Haul", function()
     c.inventory:pick_up(w)
     local h = haul:new(w)
     h:set_owner(c)
-    
+
     local action = h:next_action()
     assert.equals("move_to", action.name)
     assert.equals(stockpile.position, action.target)
