@@ -3,9 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local pick_up = {
-  name = "pick_up"
-}
+local action = require "actions.action"
+local pick_up = action:new({ name = "pick_up" })
 
 function pick_up:new(owner, target)
   local p = {

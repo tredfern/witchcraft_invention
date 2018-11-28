@@ -3,9 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local move_to = {
-  name = "move_to"
-}
+local action = require "actions.action"
+local move_to = action:new({ name = "move_to" })
 
 function move_to:new(owner, target)
   local a = {

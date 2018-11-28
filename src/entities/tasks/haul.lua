@@ -4,6 +4,9 @@
 -- https://opensource.org/licenses/MIT
 
 local actions = require "actions"
+local systems = require "systems"
+local stockpile = require "entities.stockpile"
+
 local haul = {
   is_task = true
 }
@@ -26,8 +29,11 @@ function haul:next_action()
     if not self.current_owner.position:same(self.target.position) then
       return actions.move_to:new(self.current_owner, self.target.position)
     else
-      if self.current_owner.carry_slot ~= self.target then
+      if not self.current_owner.inventory.items:contains(self.target) then
         return actions.pick_up:new(self.current_owner, self.target)
+      else
+        local haul_to = systems.entity_tracker:find_entity_type(stockpile.entity_type):first()
+        return actions.move_to:new(self.current_owner, haul_to.position)
       end
     end
   end

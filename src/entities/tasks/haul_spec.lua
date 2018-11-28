@@ -4,6 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Tasks - Haul", function()
+  local systems = require "systems"
+  local bag = require "ext.artemis.src.bag"
   local haul = require "entities.tasks.haul"
   local wood_pile = require "entities.wood_pile"
   local character = require "entities.character"
@@ -35,5 +37,20 @@ describe("Tasks - Haul", function()
     local action = h:next_action()
     assert.equals("pick_up", action.name)
     assert.equals(w, action.target)
+  end)
+
+  it("if the owner is carrying the item then it will start moving towards an available stockpile square", function()
+    local stockpile = require "entities.stockpile":new(50, 50, 1, 1)
+    systems.entity_tracker.find_entity_type = spy.new(function() return bag:new{stockpile} end)
+    local w = wood_pile:new(40, 21)
+    local c = character:new(40, 21)
+    c.inventory:pick_up(w)
+    local h = haul:new(w)
+    h:set_owner(c)
+    
+    local action = h:next_action()
+    assert.equals("move_to", action.name)
+    assert.equals(stockpile.position, action.target)
+    assert.spy(systems.entity_tracker.find_entity_type).was.called_with(systems.entity_tracker, stockpile.entity_type)
   end)
 end)

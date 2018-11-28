@@ -5,9 +5,9 @@
 
 
 local bag = require "ext.artemis.src.bag"
-local find_entity_helper = {}
+local FindEntityHelper = {}
 
-function find_entity_helper:by_position(entities, x, y)
+function FindEntityHelper:by_position(entities, x, y)
   local results = bag:new()
 
   -- This is an incredibly inefficient implementation... and it will do for now...
@@ -19,7 +19,7 @@ function find_entity_helper:by_position(entities, x, y)
   return results
 end
 
-function find_entity_helper:by_name(entities, name)
+function FindEntityHelper:by_name(entities, name)
   local results = bag:new()
 
   -- This is an incredibly inefficient implementation... and it will do for now...
@@ -31,4 +31,4 @@ function find_entity_helper:by_name(entities, name)
   return results
 end
 
-return find_entity_helper
+return FindEntityHelper
