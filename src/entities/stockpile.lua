@@ -6,7 +6,8 @@
 local components = require "components"
 local stockpile = {
   symbol = "#",
-  color = require "colors".red
+  color = require "colors".red,
+  entity_type = "stockpile"
 }
 
 function stockpile:new(x, y, width, height)

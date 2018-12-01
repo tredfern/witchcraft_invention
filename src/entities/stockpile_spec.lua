@@ -6,6 +6,10 @@
 describe("Stockpile", function()
   local stockpile = require "entities.stockpile"
 
+  it("sets entity_type to 'stockpile'", function()
+    assert.equals("stockpile", stockpile.entity_type)
+  end)
+
   it("has a symbol and color to render", function()
     local s = stockpile:new(5, 4, 1, 1)
     assert.equals("#", s.symbol)
