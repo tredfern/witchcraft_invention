@@ -6,6 +6,7 @@
 describe("System - Assign Tasks ", function()
   local AssignTasks = require "systems.assign_tasks"
   local world = require "ext.tiny-ecs".world()
+  local Task = require "entities.tasks.task"
 
   before_each(function()
     world:clearEntities()
@@ -21,7 +22,7 @@ describe("System - Assign Tasks ", function()
   end)
 
   it("clears out all tasks and entities when removed from world", function()
-    local task = { is_task = true }
+    local task = Task:new{ name = "foo" }
     local worker = { is_worker = true }
     world:add(task, worker)
     world:refresh()
@@ -36,29 +37,29 @@ describe("System - Assign Tasks ", function()
   end)
 
   it("takes any task entities that are unassigned and finds a suitable worker", function()
-    local task = { is_task = true }
+    local task = Task:new{ name = "foo" }
     local worker = { is_worker = true }
     world:add(task, worker)
 
     world:refresh()
     AssignTasks:update()
 
-    assert.equals(worker, task.current_worker)
+    assert.equals(worker, task.current_owner)
     assert.equals(task, worker.current_task)
   end)
 
   it("it only assigns tasks if the worker does not already have a task", function()
-    local task1 = { is_task = true }
-    local task2 = { is_task = true }
+    local task1 = Task:new{ name = "foo" }
+    local task2 = Task:new{ name = "foo2" }
     local worker = { is_worker = true }
     world:add(task1, task2, worker)
     world:refresh()
     AssignTasks:update()
     AssignTasks:update()
 
-    assert.equals(worker, task1.current_worker)
+    assert.equals(worker, task1.current_owner)
     assert.equals(task1, worker.current_task)
-    assert.equals(nil, task2.current_worker)
+    assert.equals(nil, task2.current_owner)
   end)
 
   it("if no tasks then do nothing", function()
@@ -71,7 +72,7 @@ describe("System - Assign Tasks ", function()
 
   it("removes a task if it is done and clears the worker so it's free to work on another task", function()
     local worker = { is_worker = true }
-    local task1 = { is_task = true }
+    local task1 = Task:new{ name = "foo" }
     world:add(task1, worker)
     world:refresh()
     AssignTasks:update()

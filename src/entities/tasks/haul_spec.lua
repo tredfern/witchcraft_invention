@@ -53,4 +53,35 @@ describe("Tasks - Haul", function()
     assert.equals(stockpile.position, action.target)
     assert.spy(systems.entity_tracker.find_entity_type).was.called_with(systems.entity_tracker, stockpile.entity_type)
   end)
+
+  it("tells the owner to drop the item when reaching the stockpile", function()
+    local stockpile = require "entities.stockpile":new(40, 21, 1, 1)
+    local w = wood_pile:new(40, 21)
+    local c = character:new(40, 21)
+    c.inventory:pick_up(w)
+    local h = haul:new(w)
+    h:set_owner(c)
+    h.haul_to = stockpile
+
+    local action = h:next_action()
+    assert.equals("drop_item", action.name)
+    assert.equals(w, action.target)
+
+    -- make sure the notify function lets the stockpile know it has an item
+    action.notify_dropped_on()
+    assert.is_true(stockpile.storage:contains(w))
+  end)
+
+  it("if item is in haul_to stockpile then job is complete", function()
+    local stockpile = require "entities.stockpile":new(40, 21, 1, 1)
+    local w = wood_pile:new(40, 21)
+    local c = character:new(40, 21)
+    local h = haul:new(w)
+    h:set_owner(c)
+    h.haul_to = stockpile
+    stockpile.storage:add(w)
+    local action = h:next_action()
+    assert.equals(nil, action)
+    assert.is_true(h.done)
+  end)
 end)

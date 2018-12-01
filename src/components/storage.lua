@@ -4,27 +4,27 @@
 -- https://opensource.org/licenses/MIT
 
 local bag = require "ext.artemis.src.bag"
-local inventory = {}
+local Storage = {}
 
-function inventory:new()
-  local i = {
+function Storage:new()
+  local s = {
     items = bag:new()
   }
-  setmetatable(i, self)
+  setmetatable(s, self)
   self.__index = self
-  return i
+  return s
 end
 
-function inventory:pick_up(item)
+function Storage:add(item)
   self.items:add(item)
 end
 
-function inventory:drop(item)
+function Storage:remove(item)
   self.items:remove(item)
 end
 
-function inventory:contains(item)
+function Storage:contains(item)
   return self.items:contains(item)
 end
 
-return inventory
+return Storage

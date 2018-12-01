@@ -15,6 +15,7 @@ describe("Entity - wood_pile", function()
 
   it("contains a count of the wood resources in the pile", function()
     local wp = wood_pile:new(4, 5)
+    assert.is_true(wp.storable)
     assert.equals(100, wp.wood)
   end)
 end)

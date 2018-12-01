@@ -7,7 +7,8 @@ local colors = require "colors"
 local components = require "components"
 local wood_pile = {
   symbol = "ʭ",
-  color = colors.golden_brown
+  color = colors.golden_brown,
+  storable = true
 }
 
 function wood_pile:new(x, y)

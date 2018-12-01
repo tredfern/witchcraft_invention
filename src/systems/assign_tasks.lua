@@ -41,7 +41,7 @@ function AssignTasks:assign_tasks()
   for _, w in ipairs(check_status) do
     local t = self.tasks:dequeue()
     if t then
-      t.current_worker = w
+      t:set_owner(w)
       w.current_task = t
     end
   end

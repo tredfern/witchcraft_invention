@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local components = require "components"
 local stockpile = {
   symbol = "#",
   color = require "colors".red
@@ -10,8 +11,9 @@ local stockpile = {
 
 function stockpile:new(x, y, width, height)
   local s = {
-    position = require "components.position":new(x, y),
-    size = require "components.size":new(width, height)
+    position = components.position:new(x, y),
+    size = components.size:new(width, height),
+    storage = components.storage:new()
   }
   setmetatable(s, self)
   self.__index = self

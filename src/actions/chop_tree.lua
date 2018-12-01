@@ -5,9 +5,7 @@
 
 local systems = require "systems"
 local wood_pile = require "entities.wood_pile"
-local choptree = {
-  name = "chop_tree"
-}
+local choptree = require "actions.action":new({ name = "chop_tree"})
 
 function choptree:new(owner, tree)
   local ct = {
@@ -20,7 +18,8 @@ function choptree:new(owner, tree)
 end
 
 function choptree:execute()
-  systems.entity_factory:create(wood_pile:new(self.target.position.x, self.target.position.y))
+  local wp = wood_pile:new(self.target.position.x, self.target.position.y)
+  systems.entity_factory:create(wp)
   systems.entity_factory:remove(self.target)
   self.done = true
 end

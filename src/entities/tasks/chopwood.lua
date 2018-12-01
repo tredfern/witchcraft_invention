@@ -5,10 +5,7 @@
 
 local actions = require "actions"
 local position = require "components.position"
-local chopwood = {
-  name = "task.chopwood",
-  is_task = true
-}
+local chopwood = require "entities.tasks.task":new{ name = "task.chopwood" }
 
 function chopwood:new(tree)
   local c = {
@@ -31,11 +28,11 @@ function chopwood:next_action()
     return nil
   end
 
-  if self.current_worker then
-    if not position.same(self.current_worker.position, self.target.position) then
-      return actions.move_to:new(self.current_worker, self.target.position)
+  if self.current_owner then
+    if not position.same(self.current_owner.position, self.target.position) then
+      return actions.move_to:new(self.current_owner, self.target.position)
     else
-      return actions.chop_tree:new(self.current_worker, self.target)
+      return actions.chop_tree:new(self.current_owner, self.target)
     end
   end
   return nil

@@ -8,3 +8,4 @@
 --
 require "ext.artemis.test_helpers.busted_extensions"
 require "test_helpers.mock_love"
+require "test_helpers.tiny_ecs_assertions"

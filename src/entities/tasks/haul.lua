@@ -7,9 +7,7 @@ local actions = require "actions"
 local systems = require "systems"
 local stockpile = require "entities.stockpile"
 
-local haul = {
-  is_task = true
-}
+local haul = require "entities.tasks.task":new{ name = "tasks.haul" }
 
 function haul:new(target)
   local h = {
@@ -20,23 +18,44 @@ function haul:new(target)
   return h
 end
 
-function haul:set_owner(owner)
-  self.current_owner = owner
-end
-
 function haul:next_action()
   if self.current_owner then
-    if not self.current_owner.position:same(self.target.position) then
-      return actions.move_to:new(self.current_owner, self.target.position)
-    else
-      if not self.current_owner.inventory.items:contains(self.target) then
-        return actions.pick_up:new(self.current_owner, self.target)
-      else
-        local haul_to = systems.entity_tracker:find_entity_type(stockpile.entity_type):first()
-        return actions.move_to:new(self.current_owner, haul_to.position)
-      end
-    end
+    local next_action = self:should_move_to_target()
+    next_action = next_action or self:should_pick_up_target()
+    next_action = next_action or self:should_move_to_stockpile()
+    next_action = next_action or self:should_drop_target()
+    self.done = next_action == nil
+    return next_action
   end
+end
+
+function haul:should_move_to_target()
+  if not self.current_owner.position:same(self.target.position) then
+    return actions.move_to:new(self.current_owner, self.target.position)
+  end
+  return nil
+end
+
+function haul:should_pick_up_target()
+  if not self.current_owner.inventory.items:contains(self.target) and not self.haul_to then
+    return actions.pick_up:new(self.current_owner, self.target)
+  end
+  return nil
+end
+
+function haul:should_move_to_stockpile()
+  if not self.haul_to then
+    self.haul_to = systems.entity_tracker:find_entity_type(stockpile.entity_type):first()
+    return actions.move_to:new(self.current_owner, self.haul_to.position)
+  end
+  return nil
+end
+
+function haul:should_drop_target()
+  if not self.haul_to.storage:contains(self.target) then
+    return actions.drop_item:new(self.current_owner, self.target, function() self.haul_to.storage:add(self.target) end)
+  end
+  return nil
 end
 
 return haul

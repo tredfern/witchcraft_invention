@@ -13,6 +13,7 @@ local world = tiny.world(
   systems.render_symbols,
   systems.entity_factory,
   systems.entity_tracker,
+  systems.gather_resources,
   systems.process_user_commands,
   systems.assign_tasks,
   systems.perform_actions

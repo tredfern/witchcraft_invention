@@ -7,6 +7,7 @@ return {
   assign_tasks = require "systems.assign_tasks",
   entity_factory = require "systems.entity_factory",
   entity_tracker = require "systems.entity_tracker",
+  gather_resources = require "systems.gather_resources",
   perform_actions = require "systems.perform_actions",
   process_user_commands = require "systems.process_user_commands",
   render_map = require "systems.render_map",
