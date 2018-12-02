@@ -19,4 +19,32 @@ describe("Tasks - Base Task", function()
     t:set_owner(o)
     assert.equals(o, t.current_owner)
   end)
+
+  it("when getting next action will build an action queue that represents the actions to perform task", function()
+    local a1, a2 = {}, {}
+    local t = Task:new{name = "task",
+      build_action_queue = function(self)
+        self.action_queue:enqueue(a1)
+        self.action_queue:enqueue(a2)
+      end
+    }
+    local a = t:next_action()
+    assert.equals(a1, a)
+    assert.equals(a2, t.action_queue:front())
+  end)
+
+  it("when action queue is empty then the task is done", function()
+    local a1, a2 = {}, {}
+    local t = Task:new{name = "task",
+      build_action_queue = function(self)
+        self.action_queue:enqueue(a1)
+        self.action_queue:enqueue(a2)
+      end
+    }
+    t:next_action()
+    t:next_action()
+    t:next_action()
+    assert.is_true(t.action_queue:isempty())
+    assert.is_true(t.done)
+  end)
 end)
