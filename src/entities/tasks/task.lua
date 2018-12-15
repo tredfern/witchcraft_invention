@@ -21,6 +21,10 @@ function Task:set_owner(owner)
   self.current_owner = owner
 end
 
+function Task:queue_action(action)
+  self.action_queue:enqueue(action)
+end
+
 function Task:next_action()
   if not self.built_queue then
     self.built_queue = true
@@ -29,6 +33,9 @@ function Task:next_action()
 
   if self.action_queue:isempty() then
     self.done = true
+    if self.finish then
+      self:finish()
+    end
     return nil
   end
 

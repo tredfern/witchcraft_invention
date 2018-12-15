@@ -24,8 +24,8 @@ describe("Tasks - Base Task", function()
     local a1, a2 = {}, {}
     local t = Task:new{name = "task",
       build_action_queue = function(self)
-        self.action_queue:enqueue(a1)
-        self.action_queue:enqueue(a2)
+        self:queue_action(a1)
+        self:queue_action(a2)
       end
     }
     local a = t:next_action()
@@ -37,8 +37,8 @@ describe("Tasks - Base Task", function()
     local a1, a2 = {}, {}
     local t = Task:new{name = "task",
       build_action_queue = function(self)
-        self.action_queue:enqueue(a1)
-        self.action_queue:enqueue(a2)
+        self:queue_action(a1)
+        self:queue_action(a2)
       end
     }
     t:next_action()
@@ -46,5 +46,12 @@ describe("Tasks - Base Task", function()
     t:next_action()
     assert.is_true(t.action_queue:isempty())
     assert.is_true(t.done)
+  end)
+
+  it("calls finish when task queue is empty to perform any finalization", function()
+    local t = Task:new{ name = "task", build_action_queue = function() end }
+    t.finish = spy.new(function() end)
+    t:next_action()
+    assert.spy(t.finish).was.called_with(t)
   end)
 end)

@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 local actions = require "actions"
-local position = require "components.position"
 local chopwood = require "entities.tasks.task":new{ name = "task.chopwood" }
 
 function chopwood:new(tree)
@@ -22,20 +21,9 @@ function chopwood:finish()
   self.done = true
 end
 
-function chopwood:next_action()
-  if self.target.is_removed then
-    self:finish()
-    return nil
-  end
-
-  if self.current_owner then
-    if not position.same(self.current_owner.position, self.target.position) then
-      return actions.move_to:new(self.current_owner, self.target.position)
-    else
-      return actions.chop_tree:new(self.current_owner, self.target)
-    end
-  end
-  return nil
+function chopwood:build_action_queue()
+  self:queue_action(actions.move_to:new(self.current_owner, self.target.position))
+  self:queue_action(actions.chop_tree:new(self.current_owner, self.target))
 end
 
 return chopwood
