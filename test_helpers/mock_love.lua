@@ -14,7 +14,9 @@ love = {
         setColor = function() end,
         setFont = function() end,
         setScissor = function() end,
-        translate = function() end
+        translate = function() end,
+        newQuad = function() return { } end,
+        newImage = function() return {} end
     },
     filesystem = {
         read = function(path)
