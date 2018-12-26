@@ -5,13 +5,13 @@
 
 local tiny = require "ext.tiny-ecs"
 local queue = require "ext.artemis.src.queue"
-local bag = require "ext.artemis.src.bag"
+local List = require "ext.artemis.src.list"
 
 local AssignTasks = tiny.system()
 
 AssignTasks.filter = tiny.requireAny("is_task", "is_worker")
 AssignTasks.tasks = queue:new()
-AssignTasks.workers = bag:new()
+AssignTasks.workers = List:new()
 
 local function unassigned_worker(w)
   return w.current_task == nil
@@ -59,7 +59,7 @@ end
 
 function AssignTasks:onRemoveFromWorld()
   self.tasks = queue:new()
-  self.workers = bag:new()
+  self.workers = List:new()
 end
 
 return AssignTasks

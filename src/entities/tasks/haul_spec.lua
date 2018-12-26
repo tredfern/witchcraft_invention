@@ -5,7 +5,7 @@
 
 describe("Tasks - Haul", function()
   local systems = require "systems"
-  local bag = require "ext.artemis.src.bag"
+  local List = require "ext.artemis.src.list"
   local haul = require "entities.tasks.haul"
   local wood_pile = require "entities.wood_pile"
   local character = require "entities.character"
@@ -18,7 +18,7 @@ describe("Tasks - Haul", function()
 
   describe("it's action queue", function()
     local stockpile = require "entities.stockpile":new(50, 50, 1, 1)
-    systems.entity_tracker.find_entity_type = spy.new(function() return bag:new{stockpile} end)
+    systems.entity_tracker.find_entity_type = spy.new(function() return List:new{stockpile} end)
     local w = wood_pile:new(40, 21)
     local h = haul:new(w)
     local c = character:new(12, 9)

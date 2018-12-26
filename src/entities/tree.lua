@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local tiny = require "ext.tiny-ecs"
-local bag = require "ext.artemis.src.bag"
+local List = require "ext.artemis.src.list"
 local terrain = require "terrain"
 local position = require "components.position"
 
@@ -12,7 +12,7 @@ local tree = {
   is_tree = true,
   symbol = "♠",
   color = {0,0.75, 0, 1},
-  disallowed_terrains = bag:new({ terrain:water() }),
+  disallowed_terrains = List:new({ terrain:water() }),
   filter = tiny.requireAll("is_tree", "position")
 }
 

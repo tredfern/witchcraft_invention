@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local tiny = require "ext.tiny-ecs"
-local bag = require "ext.artemis.src.bag"
+local List = require "ext.artemis.src.list"
 local EntityTracker = tiny.system()
 EntityTracker.filter = tiny.requireAny("entity_type")
 
@@ -23,7 +23,7 @@ end
 
 function EntityTracker:track_entity_type(e)
   if not self.entity_types[e.entity_type] then
-    self.entity_types[e.entity_type] = bag:new()
+    self.entity_types[e.entity_type] = List:new()
   end
   self.entity_types[e.entity_type]:add(e)
 end

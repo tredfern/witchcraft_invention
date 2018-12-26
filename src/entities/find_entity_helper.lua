@@ -4,11 +4,11 @@
 -- https://opensource.org/licenses/MIT
 
 
-local bag = require "ext.artemis.src.bag"
+local List = require "ext.artemis.src.list"
 local FindEntityHelper = {}
 
 function FindEntityHelper:by_position(entities, x, y)
-  local results = bag:new()
+  local results = List:new()
 
   -- This is an incredibly inefficient implementation... and it will do for now...
   for _, v in ipairs(entities) do
@@ -20,7 +20,7 @@ function FindEntityHelper:by_position(entities, x, y)
 end
 
 function FindEntityHelper:by_name(entities, name)
-  local results = bag:new()
+  local results = List:new()
 
   -- This is an incredibly inefficient implementation... and it will do for now...
   for _, v in ipairs(entities) do

@@ -3,12 +3,12 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local bag = require "ext.artemis.src.bag"
+local List = require "ext.artemis.src.list"
 local inventory = {}
 
 function inventory:new()
   local i = {
-    items = bag:new()
+    items = List:new()
   }
   setmetatable(i, self)
   self.__index = self
