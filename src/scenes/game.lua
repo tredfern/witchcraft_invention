@@ -11,6 +11,7 @@ local settings = require "settings"
 local world = tiny.world(
   systems.render_map,
   systems.render_symbols,
+  systems.gui_display,
   systems.entity_factory,
   systems.entity_tracker,
   systems.gather_resources,
@@ -53,6 +54,7 @@ function Game:draw()
 
   local dt = love.timer.getDelta()
   world:update(dt, draw_filter)
+  self.display_log:draw()
 end
 
 function Game:update()
@@ -77,5 +79,14 @@ function Game:keypressed(key)
     cursor.position.x = cursor.position.x + 1
   end
 end
+
+function Game:setup_ui()
+  local DisplayLog = require "ui.display_log"
+  self.display_log = DisplayLog:new()
+  world:addEntity(self.display_log)
+end
+
+Game:setup_ui()
+
 
 return Game

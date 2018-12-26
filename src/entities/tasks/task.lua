@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Logger = require "logger"
 local Queue = require "ext.artemis.src.queue"
 local Task = {
   is_task = true
@@ -12,6 +13,7 @@ function Task:new(tbl)
   local t = tbl
   t.action_queue = Queue:new()
   assert(t.name, "Task requires a name")
+  Logger.debug:log("New Task: %s", t.name)
   setmetatable(t, self)
   self.__index = self
   return t
@@ -33,6 +35,7 @@ function Task:next_action()
 
   if self.action_queue:isempty() then
     self.done = true
+    Logger.debug:log("Task Completed: %s", self.name)
     if self.finish then
       self:finish()
     end
