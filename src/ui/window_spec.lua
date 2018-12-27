@@ -79,5 +79,16 @@ describe("Window", function()
       assert.spy(love.graphics.translate).was.called_with(left, top)
       assert.spy(love.graphics.pop).was.called()
     end)
+
+    it("sets a scissors for the draw area to clip the draw to within the area", function()
+      mock_love.override_graphics("setScissor", spy.new(function() end))
+      w:draw()
+      local left = 1 * w.font.width
+      local top = 1 * w.font.height
+      local width = 2 * w.font.width
+      local height = 2 * w.font.height
+      assert.spy(love.graphics.setScissor).was.called_with(left, top, width, height)
+      assert.spy(love.graphics.setScissor).was.called_with()
+    end)
   end)
 end)

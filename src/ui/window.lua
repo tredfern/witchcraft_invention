@@ -54,10 +54,18 @@ function Window:draw()
   end
 
   if self.draw_interior then
+    local l, t, w, h = 
+      self.left * self.font.width, 
+      self.top * self.font.height,
+      (self.width - 1) * self.font.width,
+      (self.height - 1) * self.font.height
+    
+    love.graphics.setScissor(l, t, w, h)  
     love.graphics.push()
-    love.graphics.translate(self.left * self.font.width, self.top * self.font.height)
+    love.graphics.translate(l, t)
     self:draw_interior()
     love.graphics.pop()
+    love.graphics.setScissor()
   end
 end
 
