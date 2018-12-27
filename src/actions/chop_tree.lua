@@ -21,7 +21,7 @@ function choptree:execute()
   local wp = wood_pile:new(self.target.position.x, self.target.position.y)
   systems.entity_factory:create(wp)
   systems.entity_factory:remove(self.target)
-  self.done = true
+  self:finish()
 end
 
 return choptree

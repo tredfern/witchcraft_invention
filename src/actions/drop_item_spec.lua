@@ -30,6 +30,7 @@ describe("Actions - DropItem", function()
     di:execute()
     assert.equals(20, item.position.x)
     assert.equals(59, item.position.y)
+    assert.is_true(di.done)
   end)
 
   it("executes the notify function when completed", function()

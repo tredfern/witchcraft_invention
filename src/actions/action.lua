@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Logger = require "logger"
 local action = {}
 
 function action:new(settings)
@@ -11,6 +12,11 @@ function action:new(settings)
   setmetatable(a, self)
   self.__index = self
   return a
+end
+
+function action:finish()
+  self.done = true
+  Logger.debug:log("Action finished: %s", self.name)
 end
 
 return action

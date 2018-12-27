@@ -20,6 +20,7 @@ function DropItem:execute()
   self.owner.inventory:drop(self.target)
   self.target.position:move_to(self.owner.position.x, self.owner.position.y)
   if self.notify_dropped_on then self.notify_dropped_on() end
+  self:finish()
 end
 
 return DropItem
