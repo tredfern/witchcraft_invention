@@ -54,7 +54,6 @@ function Game:draw()
 
   local dt = love.timer.getDelta()
   world:update(dt, draw_filter)
-  self.display_log:draw()
 end
 
 function Game:update()
@@ -83,6 +82,8 @@ end
 function Game:setup_ui()
   local DisplayLog = require "ui.display_log"
   self.display_log = DisplayLog:new()
+  self.display_log:anchor_right()
+  self.display_log:anchor_bottom()
   world:addEntity(self.display_log)
 end
 

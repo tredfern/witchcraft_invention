@@ -4,5 +4,5 @@
 -- https://opensource.org/licenses/MIT
 
 function love.conf(t)
-  t.window.title = "Hidden Koala"
+  t.window.title = "Witchcraft and Invention"
 end

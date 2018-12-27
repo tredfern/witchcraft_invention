@@ -91,4 +91,20 @@ describe("Window", function()
       assert.spy(love.graphics.setScissor).was.called_with()
     end)
   end)
+
+  describe("anchor functions", function()
+    it("can be anchored to the right side of the screen", function()
+      local w = Window:new({width = 10})
+      w.font.get_screen_tile_size = function() return 40, 40 end
+      w:anchor_right()
+      assert.equals(30, w.left)
+    end)
+
+    it("can be anchored to the bottom of the screen", function()
+      local w = Window:new({height = 10})
+      w.font.get_screen_tile_size = function() return 40, 40 end
+      w:anchor_bottom()
+      assert.equals(30, w.top)
+    end)
+  end)
 end)

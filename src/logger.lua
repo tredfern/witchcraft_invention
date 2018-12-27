@@ -3,7 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local Queue = require "ext.artemis.src.queue"
+local List = require "ext.artemis.src.list"
 local Logger = {}
 local DEBUGLEVEL = 5
 local INFOLEVEL = 3
@@ -15,7 +15,7 @@ Logger.formats = {
   [ERRORLEVEL] = "ERROR: %s"
 }
 
-Logger.messages = Queue:new()
+Logger.messages = List:new()
 
 function Logger:new(logger)
   local l = logger or { level = DEBUGLEVEL }
@@ -27,7 +27,7 @@ end
 function Logger:log(message, ...)
   if Logger.log_level < self.level then return end
   local msg = Logger.formats[self.level]:format(message:format(...))
-  Logger.messages:enqueue(msg)
+  Logger.messages:add(msg)
   return msg
 end
 
