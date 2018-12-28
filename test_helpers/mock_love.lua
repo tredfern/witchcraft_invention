@@ -2,6 +2,10 @@ local font = {
   getWidth = function() return 10 end,
   getHeight = function() return 10 end
 }
+local image = {
+  getWidth = function() return 100 end,
+  getHeight = function() return 100 end
+}
 local key_down = {}
 love = {
     graphics = {
@@ -18,7 +22,7 @@ love = {
         setScissor = function() end,
         translate = function() end,
         newQuad = function() return { } end,
-        newImage = function() return {} end
+        newImage = function() return image end
     },
     filesystem = {
         read = function(path)

@@ -19,7 +19,7 @@ describe("RenderMap", function()
     world:addEntity(map)
 
     local drawCall = spy.new(function() end)
-    RenderMap.tiles.draw = drawCall
+    terrain:grass().sprite.draw = drawCall
 
     world:addSystem(RenderMap)
     world:refresh()

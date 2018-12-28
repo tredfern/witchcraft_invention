@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Logger = require "logger"
 local paths = require "paths"
 local SpriteSheet = {}
 
@@ -26,16 +27,23 @@ end
 function SpriteSheet:getQuad(x, y)
   local tileID = y * self.tiles_wide + x
 
-  local q = self[tileID] or love.graphics.newQuad(
+  local q = self[tileID] or self:createQuad(x, y) 
+  self[tileID] = q
+  return q
+end
+
+function SpriteSheet:createQuad(x, y)
+  Logger.debug:log("Creating quad(%d, %d)", x, y) 
+  Logger.debug:log("X = %d, Y = %d)", self:getTileX(x), self:getTileY(y) )
+
+  return love.graphics.newQuad(
     self:getTileX(x),
     self:getTileY(y),
     self.width,
     self.height,
-    self.image:getHeight(),
-    self.image:getWidth()
+    self.image:getWidth(),
+    self.image:getHeight()
   )
-  self[tileID] = q
-  return q
 end
 
 function SpriteSheet:setName(name, x, y)

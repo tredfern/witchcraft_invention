@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("SpriteSheet", function()
-  local SpriteSheet = require "spritesheet"
+  local SpriteSheet = require "graphics.spritesheet"
   local mock_love = require "test_helpers.mock_love"
 
   local testSheet

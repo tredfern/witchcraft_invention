@@ -5,7 +5,9 @@
 
 local settings = {}
 local text_tiles = require "text_tiles"
-settings.symbol_font = text_tiles:new("FreeMono.ttf", 24)
+settings.symbol_font = text_tiles:new("FreeMono.ttf", 16)
 settings.ui_font = text_tiles:new("FreeMono.ttf", 12)
+settings.tile_width = 16
+settings.tile_height = 16
 
 return settings

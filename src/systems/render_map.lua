@@ -21,8 +21,8 @@ function RenderMap:draw_map(map)
   for x=1,map:get_width() do
     for y=1,map:get_height() do
       local t = map:get_terrain(x, y)
-      if t then
-        self.tiles:draw(t.symbol, x, y, t.color)
+      if t.sprite then
+        t.sprite:draw(x * settings.tile_width, y * settings.tile_height)
       end
     end
   end
