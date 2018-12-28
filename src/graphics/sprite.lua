@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 local Sprite = {}
-local Logger = require "logger"
 
 function Sprite:new(sprite)
   local s = sprite or {}

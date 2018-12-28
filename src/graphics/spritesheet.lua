@@ -27,13 +27,13 @@ end
 function SpriteSheet:getQuad(x, y)
   local tileID = y * self.tiles_wide + x
 
-  local q = self[tileID] or self:createQuad(x, y) 
+  local q = self[tileID] or self:createQuad(x, y)
   self[tileID] = q
   return q
 end
 
 function SpriteSheet:createQuad(x, y)
-  Logger.debug:log("Creating quad(%d, %d)", x, y) 
+  Logger.debug:log("Creating quad(%d, %d)", x, y)
   Logger.debug:log("X = %d, Y = %d)", self:getTileX(x), self:getTileY(y) )
 
   return love.graphics.newQuad(
