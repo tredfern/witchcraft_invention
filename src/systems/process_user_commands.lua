@@ -40,7 +40,7 @@ function ProcessUserCommands:dochopwood()
 
   for _, v in ipairs(in_position) do
     if v.is_tree then
-      local chopwood_task = require "entities.tasks.chopwood":new(v)
+      local chopwood_task = require "tasks.chopwood":new(v)
       self.world:add(chopwood_task)
     end
   end

@@ -6,7 +6,7 @@
 describe("System - Assign Tasks ", function()
   local AssignTasks = require "systems.assign_tasks"
   local world = require "ext.tiny-ecs".world()
-  local Task = require "entities.tasks.task"
+  local Task = require "tasks.task"
 
   before_each(function()
     world:clearEntities()

@@ -6,7 +6,7 @@
 describe("Tasks - Haul", function()
   local systems = require "systems"
   local List = require "ext.artemis.src.list"
-  local haul = require "entities.tasks.haul"
+  local haul = require "tasks.haul"
   local wood_pile = require "entities.wood_pile"
   local character = require "entities.character"
 

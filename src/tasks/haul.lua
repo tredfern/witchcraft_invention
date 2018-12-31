@@ -7,7 +7,7 @@ local actions = require "actions"
 local systems = require "systems"
 local stockpile = require "entities.stockpile"
 
-local haul = require "entities.tasks.task":new{ name = "tasks.haul" }
+local haul = require "tasks.task":new{ name = "tasks.haul" }
 
 function haul:new(target)
   local h = {

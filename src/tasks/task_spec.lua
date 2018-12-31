@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Tasks - Base Task", function()
-  local Task = require "entities.tasks.task"
+  local Task = require "tasks.task"
 
   it("requires a name", function()
     local t = Task:new{name = "foo"}

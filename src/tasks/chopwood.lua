@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local actions = require "actions"
-local chopwood = require "entities.tasks.task":new{ name = "task.chopwood" }
+local chopwood = require "tasks.task":new{ name = "task.chopwood" }
 
 function chopwood:new(tree)
   local c = {

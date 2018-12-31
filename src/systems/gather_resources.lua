@@ -9,7 +9,7 @@ local GatherResources = tiny.system()
 GatherResources.filter = tiny.requireAny("storable")
 
 function GatherResources:onAdd(storable)
-  local haul = require "entities.tasks.haul"
+  local haul = require "tasks.haul"
   EntityFactory:create(haul:new(storable))
 end
 
