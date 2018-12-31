@@ -12,5 +12,6 @@ return {
   perform_actions = require "systems.perform_actions",
   process_user_commands = require "systems.process_user_commands",
   render_map = require "systems.render_map",
+  render_sprites = require "systems.render_sprites",
   render_symbols = require "systems.render_symbol_system",
 }

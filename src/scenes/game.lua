@@ -10,6 +10,7 @@ local settings = require "settings"
 
 local world = tiny.world(
   systems.render_map,
+  systems.render_sprites,
   systems.render_symbols,
   systems.gui_display,
   systems.entity_factory,
@@ -50,7 +51,7 @@ function Game:draw()
   local sw, sh = mf:get_screen_tile_size()
   local left, top = math.floor(cursor.position.x - sw / 2), math.floor(cursor.position.y - sh / 2)
   love.graphics.origin()
-  love.graphics.translate(-left * mf.width, -top * mf.height)
+  love.graphics.translate(-left * settings.tile_width, -top * settings.tile_height)
 
   local dt = love.timer.getDelta()
   world:update(dt, draw_filter)

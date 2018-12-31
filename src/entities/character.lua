@@ -5,13 +5,12 @@
 
 local tiny = require "ext.tiny-ecs"
 local components = require "components"
+local CharacterSheet = require "assets.images.character_sheet"
 
 local character = {
   is_character = true,
   is_worker = true,
-  symbol = "☺",
-  color = { 0.75, 0.75, 0.75, 1},
-  filter = tiny.requireAll("is_character", "position", "symbol", "color")
+  filter = tiny.requireAll("is_character")
 }
 
 function character:new(x, y)
@@ -19,6 +18,7 @@ function character:new(x, y)
     inventory = components.inventory:new(),
     position = components.position:new(x, y),
     speed = 0.2,
+    sprite = CharacterSheet.sprites.character()
   }
   setmetatable(c, self)
   self.__index = self

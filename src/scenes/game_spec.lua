@@ -10,6 +10,7 @@ describe("Game", function()
   it("configures systems to be used for rendering", function()
     assert.array_includes(systems.render_map, game.world.systems)
     assert.array_includes(systems.render_symbols, game.world.systems)
+    assert.array_includes(systems.render_sprites, game.world.systems)
     assert.array_includes(systems.gui_display, game.world.systems)
   end)
 

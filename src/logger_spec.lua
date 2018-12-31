@@ -44,4 +44,28 @@ describe("Logger", function()
     local m = Logger.debug:log("Message %s-%s: %d", "extra", "data", 5)
     assert.equals("DEBUG: Message extra-data: 5", m)
   end)
+
+  it("can add a log message around a method call for quicker debugging", function()
+    local t = {}
+    t.method = function() return 7 end
+    Logger.debug:log_method(t, "method")
+    assert.equals(7, t.method())
+    assert.equals("DEBUG: method() called", Logger.messages[1])
+  end)
+
+  it("can log a method and tracks the arguments called", function()
+    local t = {}
+    t.method = function(a,b,c) return a + b + c end
+    Logger.debug:log_method(t, "method")
+    local result = t.method(1, 2, 3)
+    assert.equals(6, result)
+    assert.equals("DEBUG: method(1, 2, 3) called", Logger.messages[1])
+  end)
+
+  it("can handle tables in parameters for logging out arguments", function()
+    local t = {}
+    t.method = function() end
+    Logger.debug:log_method(t, "method")
+    assert.has_no.errors(function() t.method({}) end)
+  end)
 end)

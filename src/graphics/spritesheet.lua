@@ -9,6 +9,7 @@ local SpriteSheet = {}
 
 function SpriteSheet:new(settings)
   local s = settings
+  Logger.debug:log("Loading sprite sheet: %s", s.name)
   s.image = love.graphics.newImage(paths.image_path .. s.name)
   s.tiles_wide = math.floor(s.image:getWidth() / (s.width + s.margin))
   setmetatable(s, self)
