@@ -4,12 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 local Sprites = require "graphics.sprites"
-local SpriteSheet = require "graphics.spritesheet"
-local Sprite = require "components.sprite"
-local terrainSheet = SpriteSheet:new{
-  name = "basesheet.png",
-  width = 16, height = 16, margin = 1
-}
 local Terrain = {}
 local loaded_terrains = {}
 

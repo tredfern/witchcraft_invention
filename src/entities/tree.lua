@@ -7,18 +7,18 @@ local tiny = require "ext.tiny-ecs"
 local List = require "ext.artemis.src.list"
 local terrain = require "terrain"
 local position = require "components.position"
+local Sprites = require "graphics.sprites"
 
 local tree = {
   is_tree = true,
-  symbol = "♠",
-  color = {0,0.75, 0, 1},
   disallowed_terrains = List:new({ terrain:water() }),
   filter = tiny.requireAll("is_tree", "position")
 }
 
 function tree:new(x, y)
   local t = {
-    position = position:new(x, y)
+    position = position:new(x, y),
+    sprite = Sprites.tree()
   }
   setmetatable(t, self)
   self.__index = self

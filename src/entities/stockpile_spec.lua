@@ -10,12 +10,6 @@ describe("Stockpile", function()
     assert.equals("stockpile", stockpile.entity_type)
   end)
 
-  it("has a symbol and color to render", function()
-    local s = stockpile:new(5, 4, 1, 1)
-    assert.equals("#", s.symbol)
-    assert.not_equal(nil, s.color)
-  end)
-
   it("covers a range of squares", function()
     local s = stockpile:new(5, 4, 10, 11)
     assert.equals(5, s.position.x)

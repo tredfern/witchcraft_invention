@@ -4,18 +4,17 @@
 -- https://opensource.org/licenses/MIT
 
 local components = require "components"
-local colors = require "colors"
+local Sprites = require "graphics.sprites"
 
 local cursor = {
   name = "input-cursor",
   is_cursor = true,
-  symbol = "X",
-  color = colors.yellow
 }
 
 function cursor:new(x, y)
   local c = {
-    position = components.position:new(x, y)
+    position = components.position:new(x, y),
+    sprite = Sprites.ui.cursor()
   }
   setmetatable(c, self)
   self.__index = self
