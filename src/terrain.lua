@@ -3,8 +3,9 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Sprites = require "graphics.sprites"
 local SpriteSheet = require "graphics.spritesheet"
-local Sprite = require "graphics.sprite"
+local Sprite = require "components.sprite"
 local terrainSheet = SpriteSheet:new{
   name = "basesheet.png",
   width = 16, height = 16, margin = 1
@@ -12,15 +13,14 @@ local terrainSheet = SpriteSheet:new{
 local Terrain = {}
 local loaded_terrains = {}
 
-function Terrain:new(name, symbol, color)
+function Terrain:new(name, sprite)
   if loaded_terrains[name] ~= nil then
     return loaded_terrains[name]
   end
 
   local t = {
     name = name,
-    symbol = symbol,
-    color = color
+    sprite = sprite
   }
   setmetatable(t, self)
   self.__index = self
@@ -33,34 +33,19 @@ function Terrain:get_terrain(name)
 end
 
 function Terrain:grass()
-  local g = self:new("grass", "☷", {0,0.7,0,0.7})
-  g.sprite = Sprite:new{
-    sheet = terrainSheet,
-    tx = 5, ty = 0
-  }
-  return g
+  return self:new("grass", Sprites.terrains.grass())
 end
 
 function Terrain:dirt()
-  local d = self:new("dirt", "⁖", {0.6, 0.6, 0.1, 0.7})
-  d.sprite = Sprite:new{
-    sheet = terrainSheet,
-    tx = 6, ty = 0
-  }
-  return d
+  return self:new("dirt", Sprites.terrains.dirt())
 end
 
 function Terrain:water()
-  local w = self:new("water", "≈", {0.2, 0.5, 0.8, 0.8})
-  w.sprite = Sprite:new{
-    sheet = terrainSheet,
-    tx = 0, ty = 0
-  }
-  return w
+  return self:new("water", Sprites.terrains.water())
 end
 
 function Terrain:none()
-  return self:new("none", " ", {0, 0, 0, 0})
+  return self:new("none", nil)
 end
 
 Terrain:grass()

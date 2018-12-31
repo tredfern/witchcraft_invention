@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 local SpriteSheet = require "graphics.spritesheet"
-local Sprite = require "graphics.sprite"
+local Sprite = require "components.sprite"
 local CharacterSheet = SpriteSheet:new{ name = "characterSheet.png", width = 16, height = 16, margin = 1}
 CharacterSheet.sprites = {
   character = function()

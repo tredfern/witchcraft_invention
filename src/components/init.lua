@@ -7,5 +7,6 @@ return {
   inventory = require "components.inventory",
   position = require "components.position",
   size = require "components.size",
+  sprite = require "components.sprite",
   storage = require "components.storage"
 }
