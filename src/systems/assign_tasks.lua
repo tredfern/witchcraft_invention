@@ -6,11 +6,11 @@
 local tiny = require "ext.tiny-ecs"
 local queue = require "ext.artemis.src.queue"
 local List = require "ext.artemis.src.list"
+local Taskboard = require "tasks.taskboard"
 
 local AssignTasks = tiny.system()
 
-AssignTasks.filter = tiny.requireAny("is_task", "is_worker")
-AssignTasks.tasks = queue:new()
+AssignTasks.filter = tiny.requireAll("is_worker")
 AssignTasks.workers = List:new()
 
 local function unassigned_worker(w)
@@ -39,7 +39,7 @@ end
 function AssignTasks:assign_tasks()
   local check_status = self.workers:where(unassigned_worker)
   for _, w in ipairs(check_status) do
-    local t = self.tasks:dequeue()
+    local t = Taskboard:next()
     if t then
       t:set_owner(w)
       w.current_task = t
@@ -48,17 +48,10 @@ function AssignTasks:assign_tasks()
 end
 
 function AssignTasks:onAdd(entity)
-  if entity.is_task then
-    self.tasks:enqueue(entity)
-  end
-
-  if entity.is_worker then
-    self.workers:add(entity)
-  end
+  self.workers:add(entity)
 end
 
 function AssignTasks:onRemoveFromWorld()
-  self.tasks = queue:new()
   self.workers = List:new()
 end
 

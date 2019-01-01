@@ -7,8 +7,10 @@ describe("System - Assign Tasks ", function()
   local AssignTasks = require "systems.assign_tasks"
   local world = require "ext.tiny-ecs".world()
   local Task = require "tasks.task"
+  local Taskboard = require "tasks.taskboard"
 
   before_each(function()
+    Taskboard:clear()
     world:clearEntities()
     world:clearSystems()
     world:refresh()
@@ -21,25 +23,23 @@ describe("System - Assign Tasks ", function()
     assert.is.falsy(AssignTasks.is_draw_system)
   end)
 
-  it("clears out all tasks and entities when removed from world", function()
-    local task = Task:new{ name = "foo" }
+  it("clears out all workers when removed from world", function()
     local worker = { is_worker = true }
-    world:add(task, worker)
+    world:add(worker)
     world:refresh()
 
-    assert.array_includes(task, AssignTasks.tasks)
     assert.array_includes(worker, AssignTasks.workers)
 
     world:removeSystem(AssignTasks)
     world:refresh()
-    assert.empty_array(AssignTasks.tasks)
     assert.empty_array(AssignTasks.workers)
   end)
 
   it("takes any task entities that are unassigned and finds a suitable worker", function()
     local task = Task:new{ name = "foo" }
+    Taskboard:post(task)
     local worker = { is_worker = true }
-    world:add(task, worker)
+    world:add(worker)
 
     world:refresh()
     AssignTasks:update()
@@ -51,8 +51,9 @@ describe("System - Assign Tasks ", function()
   it("it only assigns tasks if the worker does not already have a task", function()
     local task1 = Task:new{ name = "foo" }
     local task2 = Task:new{ name = "foo2" }
+    Taskboard:post(task1, task2)
     local worker = { is_worker = true }
-    world:add(task1, task2, worker)
+    world:add(worker)
     world:refresh()
     AssignTasks:update()
     AssignTasks:update()
@@ -73,10 +74,12 @@ describe("System - Assign Tasks ", function()
   it("removes a task if it is done and clears the worker so it's free to work on another task", function()
     local worker = { is_worker = true }
     local task1 = Task:new{ name = "foo" }
-    world:add(task1, worker)
+    world:add(worker)
     world:refresh()
     AssignTasks:update()
     task1.done = true
+    :q
+    :q
     AssignTasks:update()
     world:refresh()
     assert.equals(nil, worker.current_task)
