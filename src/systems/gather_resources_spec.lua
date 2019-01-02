@@ -5,24 +5,23 @@
 
 describe("GatherResources", function()
   local tiny = require "ext.tiny-ecs"
-  local EntityFactory = require "systems.entity_factory"
+  local Taskboard = require "tasks.taskboard"
   local GatherResources = require "systems.gather_resources"
   local WoodPile = require "entities.wood_pile"
-  local world = tiny.world(GatherResources, EntityFactory)
+  local world = tiny.world(GatherResources)
 
   before_each(function()
     world:clearEntities()
     world:refresh()
+    Taskboard:clear()
   end)
 
   it("creates haul jobs for resources that are laying on the ground", function()
     local wp = WoodPile:new(32, 21)
     world:addEntity(wp)
     world:refresh()
-
-    assert.equals(1, #world.entities)
-    EntityFactory.create = spy.new(function() end)
     world:update()
-    assert.equals(2, #world.entities)
+    local haul = Taskboard:next()
+    assert.equals(wp, haul.target)
   end)
 end)

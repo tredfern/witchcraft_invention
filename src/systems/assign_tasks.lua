@@ -4,7 +4,6 @@
 -- https://opensource.org/licenses/MIT
 
 local tiny = require "ext.tiny-ecs"
-local queue = require "ext.artemis.src.queue"
 local List = require "ext.artemis.src.list"
 local Taskboard = require "tasks.taskboard"
 

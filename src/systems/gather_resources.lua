@@ -4,13 +4,13 @@
 -- https://opensource.org/licenses/MIT
 
 local tiny = require "ext.tiny-ecs"
-local EntityFactory = require "systems.entity_factory"
+local Taskboard = require "tasks.taskboard"
 local GatherResources = tiny.system()
 GatherResources.filter = tiny.requireAny("storable")
 
 function GatherResources:onAdd(storable)
-  local haul = require "tasks.haul"
-  EntityFactory:create(haul:new(storable))
+  local Haul = require "tasks.haul"
+  Taskboard:post(Haul:new(storable))
 end
 
 return GatherResources

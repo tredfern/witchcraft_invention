@@ -6,8 +6,8 @@
 describe("ProcessUserCommands", function()
   local mock_love = require "test_helpers.mock_love"
   local tiny = require "ext.tiny-ecs"
-  local find_entity_helper = require "entities.find_entity_helper"
   local world = tiny.world()
+  local Taskboard = require "tasks.taskboard"
   local ProcessUserCommands = require "systems.process_user_commands"
 
   before_each(function()
@@ -16,6 +16,7 @@ describe("ProcessUserCommands", function()
     world:refresh()
     world:addSystem(ProcessUserCommands)
     world:refresh()
+    Taskboard:clear()
   end)
 
   it("is an update only system", function()
@@ -33,9 +34,8 @@ describe("ProcessUserCommands", function()
     ProcessUserCommands:update()
     mock_love.simulate_key_up("c")
     ProcessUserCommands:update()
-
-    local cw = find_entity_helper:by_name(world.entities, "task.chopwood"):first()
-    assert.equals(tree, cw.target)
+    local nextTask = Taskboard:next()
+    assert.equals(tree, nextTask.target)
   end)
 
   it("if a key is held down keypressed will be true", function()

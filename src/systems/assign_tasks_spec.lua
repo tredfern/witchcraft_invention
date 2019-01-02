@@ -78,8 +78,6 @@ describe("System - Assign Tasks ", function()
     world:refresh()
     AssignTasks:update()
     task1.done = true
-    :q
-    :q
     AssignTasks:update()
     world:refresh()
     assert.equals(nil, worker.current_task)

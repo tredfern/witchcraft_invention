@@ -3,6 +3,7 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Taskboard = require "tasks.taskboard"
 local tiny = require "ext.tiny-ecs"
 local find_entities = require "entities.find_entity_helper"
 local ProcessUserCommands = tiny.system()
@@ -29,7 +30,6 @@ function ProcessUserCommands:update()
   if self:keyreleased("c") then
     self:dochopwood() --switch to command pattern later
   end
-  self.world:refresh()
 end
 
 function ProcessUserCommands:dochopwood()
@@ -41,7 +41,7 @@ function ProcessUserCommands:dochopwood()
   for _, v in ipairs(in_position) do
     if v.is_tree then
       local chopwood_task = require "tasks.chopwood":new(v)
-      self.world:add(chopwood_task)
+      Taskboard:post(chopwood_task)
     end
   end
 end
