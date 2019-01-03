@@ -4,7 +4,7 @@
 -- https://opensource.org/licenses/MIT
 
 describe("class", function()
-  local class = require "ext.class"
+  local class = require "class"
 
   describe("type names", function()
     it("requires a type name for a class", function()

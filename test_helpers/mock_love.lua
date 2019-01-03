@@ -8,6 +8,9 @@ local image = {
 }
 local key_down = {}
 love = {
+    event = {
+      quit = function() end,
+    },
     graphics = {
         getWidth = function() return 1600 end,
         getHeight = function() return 900 end,
@@ -44,6 +47,9 @@ love = {
     handlers = { }
 }
 return {
+  mock = function(tbl, method, replace)
+    tbl[method] = replace
+  end,
   override_graphics = function(v, r)
     love.graphics[v] = r
   end,

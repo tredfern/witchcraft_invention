@@ -4,7 +4,8 @@
 -- https://opensource.org/licenses/MIT
 
 describe("Game", function()
-  local game = require "scenes.game"
+  local mock_love = require "test_helpers.mock_love"
+  local game = require "scenes.game":new()
   local systems = require "systems"
 
   it("configures systems to be used for rendering", function()
@@ -41,5 +42,11 @@ describe("Game", function()
     assert.spy(systems.render_map.update).was.not_called()
     assert.spy(systems.render_symbols.update).was.not_called()
     assert.spy(systems.assign_tasks.update).was.called()
+  end)
+
+  it("quits the game on escape key", function()
+    mock_love.mock(love.event, "quit", spy.new(function() end))
+    game:keypressed("escape")
+    assert.spy(love.event.quit).was.called()
   end)
 end)

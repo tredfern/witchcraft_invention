@@ -7,28 +7,22 @@ local searchpath = love.filesystem.getRequirePath()
 searchpath = searchpath .. ";src/?.lua;src/?/init.lua;"
 love.filesystem.setRequirePath(searchpath)
 
-local statemachine = require("statemachine")
-local scenes = statemachine:new({"update", "draw", "keypressed"})
+local Scene = require "scenes.scene"
+local Title = require "scenes.title"
 
 function love.load()
-  scenes.title = require("scenes.title")
-  scenes.game = require("scenes.game")
-  scenes:change(scenes.game)
+  Title:new():activate()
 end
 
 function love.draw()
-  scenes:draw()
+  Scene.current_scene:draw()
 end
 
 function love.update()
-  scenes:update()
+  Scene.current_scene:update()
 end
 
 function love.keypressed(key, scancode)
-  scenes:keypressed(key, scancode)
-
-  if key == "escape" then
-    love.event.quit()
-  end
+  Scene.current_scene:keypressed(key, scancode)
 end
 

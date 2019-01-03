@@ -3,7 +3,8 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
-local Game = {}
+local Scene = require "scenes.scene"
+local Game = Scene:subclass("Game")
 local tiny = require "ext.tiny-ecs"
 local systems = require "systems"
 local settings = require "settings"
@@ -77,6 +78,10 @@ function Game:keypressed(key)
 
   if key == "right" then
     cursor.position.x = cursor.position.x + 1
+  end
+
+  if key == "escape" then
+    love.event.quit()
   end
 end
 
