@@ -5,23 +5,28 @@
 
 local class = {}
 
-function class:create(typename)
-end
-
-function class:new(tbl)
-  local instance = tbl or {}
-  setmetatable(instance, self)
+function class:create(base)
+  local c = base or {}
+  setmetatable(c, self)
   self.__index = self
-  return instance
+
+  function c:new(o)
+    local instance = o or {}
+    setmetatable(instance, c)
+    return instance
+  end
+  return c
 end
 
 function class:is(typeof)
   return self.type_name == typeof.type_name
 end
 
+return function(className, base_class)
+  if base_class then
+    return class:create(base_class)
+  else
+    return class:create({ type_name = className })
+  end
 
-return function(className)
-  return class:new({
-    type_name = className
-  })
 end
