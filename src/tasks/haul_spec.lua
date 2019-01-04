@@ -13,7 +13,6 @@ describe("Tasks - Haul", function()
   it("tracks a resource to be hauled", function()
     local h = haul:new(wood_pile)
     assert.is_equal(wood_pile, h.target)
-    assert.is_true(h.is_task)
   end)
 
   describe("it's action queue", function()

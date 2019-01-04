@@ -4,25 +4,18 @@
 -- https://opensource.org/licenses/MIT
 
 local actions = require "actions"
-local chopwood = require "tasks.task":new{ name = "task.chopwood" }
+local chopwood = require "tasks.task":subclass("task.chopwood")
 
 function chopwood.__eq(a, b)
   return a.name == b.name and a.target == b.target
 end
 
-function chopwood:new(tree)
-  local c = {
-    target = tree,
-    done = false
-  }
-  setmetatable(c, self)
-  self.__index = self
-  return c
+function chopwood:initialize(tree)
+  self.target = tree
 end
 
 function chopwood:finish()
   self.target = nil
-  self.done = true
 end
 
 function chopwood:build_action_queue()

@@ -8,17 +8,10 @@ describe("Task - Chop Wood", function()
   local tree = require "entities.tree"
   local character = require "entities.character"
 
-  it("is flagged as a task", function()
-    local t = tree:new(1, 1)
-    local task = chopwood:new(t)
-    assert.is_true(task.is_task)
-  end)
-
   it("designates a tree to be chopped into wood", function()
     local t = tree:new(12, 39)
     local task = chopwood:new(t)
     assert.equals(t, task.target)
-    assert.is_false(task.done)
   end)
 
   it("marks two chopwood tasks as equal if they have the same target", function()
@@ -28,12 +21,11 @@ describe("Task - Chop Wood", function()
     assert.equal(task, same)
   end)
 
-  it("when the task is done, the target is removed and flagged as completed", function()
+  it("when the task is done, the target is removed", function()
     local t = tree:new(32, 32)
     local task = chopwood:new(t)
     task:finish()
     assert.equals(nil, task.target)
-    assert.is_true(task.done)
   end)
 
   describe("it's action queue", function()

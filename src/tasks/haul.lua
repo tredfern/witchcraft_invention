@@ -7,15 +7,10 @@ local actions = require "actions"
 local systems = require "systems"
 local stockpile = require "entities.stockpile"
 
-local haul = require "tasks.task":new{ name = "tasks.haul" }
+local haul = require "tasks.task":subclass("task.haul")
 
-function haul:new(target)
-  local h = {
-    target = target
-  }
-  setmetatable(h, self)
-  self.__index = self
-  return h
+function haul:initialize(target)
+  self.target = target
 end
 
 function haul:build_action_queue()
