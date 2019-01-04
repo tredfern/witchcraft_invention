@@ -24,7 +24,7 @@ function Task:next_action()
 
   if self.action_queue:isempty() then
     self.done = true
-    Logger.debug:log("Task Completed: %s", self.name)
+    Logger.debug:log("Task Completed: %s", tostring(self))
     if self.finish then
       self:finish()
     end
