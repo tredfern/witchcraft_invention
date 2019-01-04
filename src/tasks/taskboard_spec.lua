@@ -42,6 +42,6 @@ describe("Taskboard", function()
     local t1 = {}
     Taskboard:post(t1, t1, t1)
     assert.equals(t1, Taskboard:next())
-    assert.equal(nil, Taskboard:next())
+    assert.is_nil(Taskboard:next())
   end)
 end)
