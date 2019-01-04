@@ -1,6 +1,18 @@
 [![Build Status](https://travis-ci.org/tredfern/witchcraft_invention.svg?branch=master)](https://travis-ci.org/tredfern/witchcraft_invention)
 [![Coverage Status](https://coveralls.io/repos/github/tredfern/witchcraft_invention/badge.svg?branch=master)](https://coveralls.io/github/tredfern/witchcraft_invention?branch=master)
 
+# Witchcraft and Invention (Working Title)
+This is a base-building game project, built using the LÖVE Framework. 
+
+## Game Design
+To be published....
+
+
+## Coding Goals
+ * Full Test Coverage
+ * Continuous Builds / Integration
+ * Flexible and moddable framework
+
 ## Building
 
 Requires:
