@@ -21,6 +21,13 @@ describe("Task - Chop Wood", function()
     assert.is_false(task.done)
   end)
 
+  it("marks two chopwood tasks as equal if they have the same target", function()
+    local t = tree:new(3, 4)
+    local task = chopwood:new(t)
+    local same = chopwood:new(t)
+    assert.equal(task, same)
+  end)
+
   it("when the task is done, the target is removed and flagged as completed", function()
     local t = tree:new(32, 32)
     local task = chopwood:new(t)

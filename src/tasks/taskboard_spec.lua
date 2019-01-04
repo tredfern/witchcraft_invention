@@ -37,4 +37,11 @@ describe("Taskboard", function()
     assert.equals(t2, Taskboard:next())
     assert.equals(t3, Taskboard:next())
   end)
+
+  it("disallows a duplicate task from being added to the board", function()
+    local t1 = {}
+    Taskboard:post(t1, t1, t1)
+    assert.equals(t1, Taskboard:next())
+    assert.equals(nil, Taskboard:next())
+  end)
 end)

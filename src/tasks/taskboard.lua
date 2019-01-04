@@ -9,7 +9,9 @@ Taskboard.tasks = Queue:new()
 
 function Taskboard:post(...)
   for _, v in ipairs({...}) do
-    self.tasks:enqueue(v)
+    if not self:contains(v) then
+      self.tasks:enqueue(v)
+    end
   end
 end
 
@@ -19,6 +21,13 @@ end
 
 function Taskboard:clear()
   self.tasks:clear()
+end
+
+function Taskboard:contains(t)
+  for _, v in ipairs(self.tasks) do
+    if v == t then return true end
+  end
+  return false
 end
 
 return Taskboard

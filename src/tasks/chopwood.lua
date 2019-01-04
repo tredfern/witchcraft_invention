@@ -6,6 +6,10 @@
 local actions = require "actions"
 local chopwood = require "tasks.task":new{ name = "task.chopwood" }
 
+function chopwood.__eq(a, b)
+  return a.name == b.name and a.target == b.target
+end
+
 function chopwood:new(tree)
   local c = {
     target = tree,
