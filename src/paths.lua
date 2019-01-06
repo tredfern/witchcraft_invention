@@ -12,5 +12,6 @@ return {
   asset_path = asset_path,
   font_path = font_path,
   image_path = image_path,
-  sound_path = sound_path
+  sound_path = sound_path,
+  fonts = font_path
 }

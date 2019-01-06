@@ -3,12 +3,18 @@
 -- This software is released under the MIT License.
 -- https://opensource.org/licenses/MIT
 
+local Fonts = require "graphics.fonts"
+local Colors = require "colors"
 local Scene = require "scenes.scene"
 local Title = Scene:subclass("Title")
+local background_image = require "ui.background":new("assets/images/title_background.png")
+local title_label = require "ui.label":new(Fonts.title, "Witchcraft and Invention", 50, 100, Colors.black)
+
 
 
 function Title:draw()
-  love.graphics.print("Title Screen")
+  background_image:draw()
+  title_label:draw()
   love.graphics.print("[N]ew Game", 10, 10)
   love.graphics.print("[L]oad Game", 10, 20)
   love.graphics.print("[S]ettings", 10, 30)
