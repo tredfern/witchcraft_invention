@@ -11,28 +11,34 @@ describe("Scenes - Title", function()
   local LoadGame = require "scenes.load_game"
   local Settings = require "scenes.settings"
 
-  it("can switch to a new game scene", function()
+  it("arrow keys move the focused item", function()
     local t = Title:new()
-    t:keypressed("n")
+    t:keypressed("down")
+    assert.equals(t.menu.items[2], t.menu:get_focused_item())
+    t:keypressed("up")
+    assert.equals(t.menu.items[1], t.menu:get_focused_item())
+  end)
+
+  it("space key triggers the selected item", function()
+    local t = Title:new()
+    -- New Game
+    t:keypressed("space")
     assert.is_true(Scene.current_scene:isInstanceOf(NewGame))
-  end)
 
-  it("can switch to a load screen", function()
-    local t = Title:new()
-    t:keypressed("l")
+    -- Load Game
+    t:keypressed("down")
+    t:keypressed("space")
     assert.is_true(Scene.current_scene:isInstanceOf(LoadGame))
-  end)
 
-  it("can switch to a settings screen", function()
-    local t = Title:new()
-    t:keypressed("s")
+    -- Settings
+    t:keypressed("down")
+    t:keypressed("space")
     assert.is_true(Scene.current_scene:isInstanceOf(Settings))
-  end)
 
-  it("can quit the game", function()
+    -- Quit Game
     mock_love.mock(love.event, "quit", spy.new(function() end))
-    local t = Title:new()
-    t:keypressed("q")
+    t:keypressed("down")
+    t:keypressed("space")
     assert.spy(love.event.quit).was.called()
   end)
 end)
