@@ -23,6 +23,7 @@ function Title:initialize()
   self["up"] = function() self.menu:previous_item() end
   self["down"] = function() self.menu:next_item() end
   self["space"] = function() self.menu:click() end
+  self["return"] = function() self.menu:click() end
 end
 
 
