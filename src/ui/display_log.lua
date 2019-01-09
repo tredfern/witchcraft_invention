@@ -7,10 +7,10 @@ local reverse = require "ext.artemis.src.reverse_iterator"
 local Window = require "ui.window"
 local Logger = require "logger"
 local DisplayLog = Window:new{
-  left = 1,
-  top = 1,
-  width = 40,
-  height = 20,
+  left = 0,
+  top = 0,
+  width = 400,
+  height = 200,
   background_color = { 0, 0, 0, 0.33 }
 }
 

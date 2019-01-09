@@ -7,58 +7,33 @@ describe("Window", function()
   local mock_love = require "test_helpers.mock_love"
   local Window = require "src.ui.window"
 
-  it("has coordinates based on tile coordinates", function()
-    local w = Window:new{
-      left = 10,
-      top = 10,
-      width = 20,
-      height = 20
-    }
-    assert.equals(10, w.left)
-    assert.equals(10, w.top)
-    assert.equals(20, w.width)
-    assert.equals(20, w.height)
-  end)
+  describe("drawing window", function()
+    local w = Window:new{ left = 0, top = 0, width = 100, height = 150, color = {0,1,0,1}}
+    it("draws a box border", function()
+      mock_love.mock(love.graphics, "setColor", spy.new(function() end))
+      mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
+      w:draw()
+      assert.spy(love.graphics.setColor).was.called_with(w.color)
+      assert.spy(love.graphics.rectangle).was.called_with("line", 0, 0, 100, 150)
+    end)
 
-  it("draws a box border", function()
-    local w = Window:new{ left = 0, top = 0, width = 4, height = 4, color = {0,1,0,1}}
-    Window.font.draw = spy.new(function() end)
-    w:draw()
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.topleft, 0, 0, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.topright, 4, 0, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.bottomleft, 0, 4, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.bottomright, 4, 4, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.horizontal, 1, 0, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.horizontal, 2, 0, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.horizontal, 3, 0, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.horizontal, 1, 4, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.horizontal, 2, 4, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.horizontal, 3, 4, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.vertical, 0, 1, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.vertical, 0, 2, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.vertical, 0, 3, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.vertical, 4, 1, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.vertical, 4, 2, {0, 1, 0, 1})
-    assert.spy(Window.font.draw).was.called_with(Window.font, w.symbols.vertical, 4, 3, {0, 1, 0, 1})
-  end)
-
-  it("draws a background rectangle in the color specified", function()
-    local rect = spy.new(function() end)
-    local w = Window:new({ left = 1, top = 1, width = 3, height = 3})
-    w.background_color = {0, 0, 1, 1}
-    mock_love.override_graphics("rectangle", rect)
-    w:draw()
-    assert.spy(rect).was.called()
-    assert.spy(rect).was.called_with("fill", 0, 0, 30, 33)
+    it("draws a background rectangle in the color specified", function()
+      mock_love.mock(love.graphics, "setColor", spy.new(function() end))
+      mock_love.mock(love.graphics, "rectangle", spy.new(function() end))
+      w.background_color = {0, 0, 1, 1}
+      w:draw()
+      assert.spy(love.graphics.setColor).was.called_with(w.background_color)
+      assert.spy(love.graphics.rectangle).was.called_with("fill", 0, 0, 100, 150)
+    end)
   end)
 
   describe("interior drawing area", function()
     local interior_spy = spy.new(function() end)
     local w = Window:new{
-      left = 1,
-      top = 1,
-      width = 3,
-      height = 3,
+      left = 0,
+      top = 0,
+      width = 300,
+      height = 35,
       color = {1, 1, 1, 1},
       draw_interior = interior_spy
     }
@@ -73,38 +48,33 @@ describe("Window", function()
       mock_love.override_graphics("translate", spy.new(function() end))
       mock_love.override_graphics("pop", spy.new(function() end))
       w:draw()
-      local left = 1 * w.font.width
-      local top = 1 * w.font.height
       assert.spy(love.graphics.push).was.called()
-      assert.spy(love.graphics.translate).was.called_with(left, top)
+      assert.spy(love.graphics.translate).was.called_with(w.left, w.top)
       assert.spy(love.graphics.pop).was.called()
     end)
 
     it("sets a scissors for the draw area to clip the draw to within the area", function()
       mock_love.override_graphics("setScissor", spy.new(function() end))
       w:draw()
-      local left = 1 * w.font.width
-      local top = 1 * w.font.height
-      local width = 2 * w.font.width
-      local height = 2 * w.font.height
-      assert.spy(love.graphics.setScissor).was.called_with(left, top, width, height)
+      assert.spy(love.graphics.setScissor).was.called_with(w.left, w.top, w.width, w.height)
       assert.spy(love.graphics.setScissor).was.called_with()
     end)
   end)
 
   describe("anchor functions", function()
+    mock_love.mock(love.graphics, "getWidth", function() return 1600 end)
+    mock_love.mock(love.graphics, "getHeight", function() return 900 end)
+
     it("can be anchored to the right side of the screen", function()
-      local w = Window:new({width = 10})
-      w.font.get_screen_tile_size = function() return 40, 40 end
+      local w = Window:new({width = 500})
       w:anchor_right()
-      assert.equals(30, w.left)
+      assert.equals(1100, w.left)
     end)
 
     it("can be anchored to the bottom of the screen", function()
-      local w = Window:new({height = 10})
-      w.font.get_screen_tile_size = function() return 40, 40 end
+      local w = Window:new({height = 100})
       w:anchor_bottom()
-      assert.equals(30, w.top)
+      assert.equals(800, w.top)
     end)
   end)
 end)

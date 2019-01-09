@@ -7,17 +7,9 @@ local settings = require "settings"
 local Window = {
   ui_display = true,
   font = settings.ui_font,
-  symbols = {
-    topleft = "┌",
-    topright = "┐",
-    bottomleft = "└",
-    bottomright = "┘",
-    horizontal = "─",
-    vertical = "│"
-  },
   color = { 1, 1, 1, 1},
   background_color = { 0, 0, 0, 1},
-  left = 1, top = 1, width = 10, height = 10
+  left = 0, top = 0, width = 100, height = 100
 }
 
 function Window:new(configuration)
@@ -33,36 +25,14 @@ end
 
 function Window:draw()
   love.graphics.setColor(self.background_color)
-  love.graphics.rectangle("fill",
-    (self.left - 1) * self.font.width, (self.top - 1) * self.font.height,
-    self.width * self.font.width, self.height * self.font.height
-  )
-
-  self.font:draw(self.symbols.topleft, self.left, self.top, self.color)
-  self.font:draw(self.symbols.topright, self.left + self.width, self.top, self.color)
-  self.font:draw(self.symbols.bottomleft, self.left, self.top + self.height, self.color)
-  self.font:draw(self.symbols.bottomright, self.left + self.width, self.top + self.height, self.color)
-
-  for w=1,self.width - 1 do
-    self.font:draw(self.symbols.horizontal, self.left + w, self.top, self.color)
-    self.font:draw(self.symbols.horizontal, self.left + w, self.top + self.height, self.color)
-  end
-
-  for h=1,self.height - 1 do
-    self.font:draw(self.symbols.vertical, self.left, self.top + h, self.color)
-    self.font:draw(self.symbols.vertical, self.left + self.width, self.top + h, self.color)
-  end
+  love.graphics.rectangle("fill", self.left, self.top, self.width, self.height)
+  love.graphics.setColor(self.color)
+  love.graphics.rectangle("line", self.left, self.top, self.width, self.height)
 
   if self.draw_interior then
-    local l, t, w, h =
-      self.left * self.font.width,
-      self.top * self.font.height,
-      (self.width - 1) * self.font.width,
-      (self.height - 1) * self.font.height
-
-    love.graphics.setScissor(l, t, w, h)
+    love.graphics.setScissor(self.left, self.top, self.width, self.height)
     love.graphics.push()
-    love.graphics.translate(l, t)
+    love.graphics.translate(self.left, self.top)
     self:draw_interior()
     love.graphics.pop()
     love.graphics.setScissor()
@@ -70,12 +40,12 @@ function Window:draw()
 end
 
 function Window:anchor_right()
-  local sw = self.font:get_screen_tile_size()
+  local sw = love.graphics.getWidth()
   self.left = sw - self.width
 end
 
 function Window:anchor_bottom()
-  local _, sh = self.font:get_screen_tile_size()
+  local sh = love.graphics.getHeight()
   self.top = sh - self.height
 end
 
