@@ -39,6 +39,14 @@ function Window:draw()
   end
 end
 
+function Window:anchor_left()
+  self.left = 0
+end
+
+function Window:anchor_top()
+  self.top = 0
+end
+
 function Window:anchor_right()
   local sw = love.graphics.getWidth()
   self.left = sw - self.width

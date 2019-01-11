@@ -91,6 +91,14 @@ function Game:setup_ui()
   self.display_log:anchor_right()
   self.display_log:anchor_bottom()
   world:addEntity(self.display_log)
+
+  local Toolbar = require "ui.toolbar"
+  self.toolbar = Toolbar:new()
+  self.toolbar.width = 600
+  self.toolbar.height = 175
+  self.toolbar:anchor_left()
+  self.toolbar:anchor_bottom()
+  world:addEntity(self.toolbar)
 end
 
 Game:setup_ui()

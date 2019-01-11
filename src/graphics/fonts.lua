@@ -6,5 +6,6 @@
 local paths = require "paths"
 return {
   title = love.graphics.newFont(paths.fonts .. "Agreloy.ttf", 42),
-  menu = love.graphics.newFont(paths.fonts .. "Agreloy.ttf", 24)
+  menu = love.graphics.newFont(paths.fonts .. "Agreloy.ttf", 24),
+  button = love.graphics.newFont(paths.fonts .. "BebasNeue.ttf", 12),
 }
